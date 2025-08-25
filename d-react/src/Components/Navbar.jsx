@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import profile from "../assets/images/profile.png";
 import menu_icon from "../assets/images/menu_icon.png";
 import MainSection from "./MainSection";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -36,7 +37,7 @@ const Navbar = () => {
       </div>
 
       <div className="flex flex-1">
-        <MainSection extended={extended} setExtended={setExtended} />
+      <Link to="/" ><MainSection extended={extended} />  </Link>
       </div>
     </div>
   );

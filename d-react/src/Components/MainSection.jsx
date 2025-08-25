@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Home,Folder,ChevronRight} from "lucide-react";
+import { Link } from "react-router-dom";
 
-const MainSection = ({extended,setExtended}) => {
+const MainSection = ({extended}) => {
   
   const [display,setDisplay] = useState(false)
   
@@ -11,7 +12,7 @@ const MainSection = ({extended,setExtended}) => {
   return (      
     
     <div className="flex justify-around h-screen w-screen resize-none">
-      {/*sidebar*/}
+                           {/*sidebar*/}
              <aside
   className={`min-h-screen bg-white dark:bg-gray-900 shadow-md transition-all duration-300 
   ${extended ? "w-64" : "w-20"}`}
@@ -23,12 +24,12 @@ const MainSection = ({extended,setExtended}) => {
   <nav className="flex flex-col p-4 space-y-2">
     <div className="flex items-center gap-2">
       {extended ? (
-        <a
-          href="#"
+        <Link
+          href="/"
           className="flex items-center gap-2 font-semibold hover:bg-gray-200 hover:w-80 dark:hover:bg-gray-700 p-2 rounded"
         >
           <Home size={24} /> Home
-        </a>
+        </Link>
       ) : (
         <Home className="my-2 mx-1.5" size={21} />
       )}
@@ -53,23 +54,17 @@ const MainSection = ({extended,setExtended}) => {
 
       {display && extended && (
         <div>
-          <a
-            href="#"
-            className="block px-8 py-3 rounded hover:bg-gray-200 dark:hover:bg-gray-700"
-          >
-            Profile
-          </a>
-          <a
-            href="#"
-            className="block px-8 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700"
-          >
-            Tasks
-          </a>
+          <Link
+            to="/Profile"
+            className="block px-8 py-3 rounded hover:bg-gray-200 dark:hover:bg-gray-700"> Profile
+          </Link>
+          <Link to="/Tasks"className="block px-8 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700">
+            Tasks</Link>
         </div>
       )}
     </div>
   </nav></aside>
-                
+                {/*main*/}
   
       
           <main className="flex-1 bg-gray-100 ">
@@ -134,7 +129,7 @@ const MainSection = ({extended,setExtended}) => {
         </p>
       </div>
     </div>
-
+                        {/*footer*/}
   
       
        <footer className=" text-center tet-sm text-gray-500 bg-gray-100 mt-6 pt-32">
