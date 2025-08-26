@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { Search } from "lucide-react";
 
 const tasks = [
   {
@@ -114,77 +115,220 @@ const tasks = [
 ];
 
 const Tasks = () => {
-  return (
-    <div className="flex-1 p-8 pb-1 bg-gray-100 dark:bg-gray-900 min-h-screen transition-colors duration-300">
-      <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-gray-100">
-        Tasks
-      </h1>
+  const [openColumn, setOpenColumn] = useState(null);
 
-      <div className="overflow-x-auto shadow-lg rounded-lg">
-        <table className="min-w-full text-sm text-left bg-white dark:bg-gray-800 transition-colors duration-300">
-          <thead className="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 uppercase text-xs">
-            <tr>
-              <th className="px-4 py-3">Task Id</th>
-              <th className="px-4 py-3">Subject</th>
-              <th className="px-4 py-3">Status</th>
-              <th className="px-4 py-3">Priority</th>
-              <th className="px-4 py-3">Assigned to</th>
-              <th className="px-4 py-3">Start date</th>
-              <th className="px-4 py-3">Due Date</th>
-              <th className="px-4 py-3">Priority num</th>
-              <th className="px-4 py-3">Completion</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tasks.map((task) => (
-              <tr
-                key={task.id}
-                className="border-b border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
+
+   const Dropdown = () => (
+    <div className="absolute mt-1 w-40 bg-white dark:bg-gray-800 shadow-md rounded-md text-0.5 z-50">
+      <ul>
+        <li className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+         Equals
+        </li>
+        <li className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+          Does not Equal
+        </li>
+        <li className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+        Less than
+        </li>
+        <li className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+        Greater than
+        </li>
+         <li className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+        Less than or equal to
+        </li>
+          <li className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+        Greater than or equal to
+        </li>
+          <li className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+        Between
+        </li>
+          <li className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+        Reset
+        </li>
+      </ul>
+    </div>
+  );
+
+  return (
+    <div>
+      
+     
+
+      <div className="flex-1 p-8 pb-1 bg-gray-100 dark:bg-gray-900 min-h-screen transition-colors duration-300">
+        <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-gray-100">
+          Tasks
+        </h1>
+
+        <div className="overflow-x-auto shadow-lg rounded-lg">
+          <table className="min-w-full text-sm text-left bg-white dark:bg-gray-800 transition-colors duration-300">
+            <thead className=" dark:bg-gray-700 text-gray-600 dark:text-gray-300 uppercase text-xs">
+              <tr>
+                <th className="px-4 py-3 border-b border-gray-300">Task Id</th>
+                <th className="px-4 py-3 border-b border-gray-300">Subject</th>
+                <th className="px-4 py-3 border-b border-gray-300">Status</th>
+                <th className="px-4 py-3 border-b border-gray-300">Priority</th>
+                <th className="px-4 py-3 border-b border-gray-300">
+                  Assigned to
+                </th>
+                <th className="px-4 py-3 border-b border-gray-300">
+                  Start date
+                </th>
+                <th className="px-4 py-3 border-b border-gray-300">Due Date</th>
+                <th className="px-4 py-3 border-b border-gray-300">Priority</th>
+                <th className="px-4 py-3 border-b border-gray-300">
+                  Completion
+                </th>
+              </tr>
+              <tr>
+          
+                <td
+                  className="px-4 py-2 border-b border-gray-300 cursor-pointer" >
+                    <button
+                onClick={() =>
+                  setOpenColumn(openColumn === "id" ? null : "id")
+                }
               >
-                <td className="px-4 py-2 text-gray-800 dark:text-gray-200">
-                  {task.id}
+                <Search />
+              </button>
+              {openColumn === "id" && <Dropdown />}
                 </td>
-                <td className="px-4 py-2 text-gray-800 dark:text-gray-200">
-                  {task.subject}
+                
+
+                <td className="px-4 py-2 border-b border-gray-300">
+             <button
+                onClick={() =>
+                  setOpenColumn(openColumn === "subject" ? null : "subject")
+                }
+              >
+                <Search />
+              </button>
+              {openColumn === "subject" && <Dropdown />}
                 </td>
-                <td className="px-4 py-2 text-gray-800 dark:text-gray-200">
-                  {task.status}
+
+
+                <td className="px-4 py-2 border-b border-gray-300">
+                  <button
+                onClick={() =>
+                  setOpenColumn(openColumn === "status" ? null : "status")
+                }
+              >
+                <Search />
+              </button>
+              {openColumn === "status" && <Dropdown />}
                 </td>
-                <td className="px-4 py-2 text-gray-800 dark:text-gray-200">
-                  {task.priority}
+
+
+                <td className="px-4 py-2 border-b border-gray-300">(All)</td>
+
+
+                <td className="px-4 py-2 border-b border-gray-300">
+                  <button
+                onClick={() =>
+                  setOpenColumn(openColumn === "assignedTo" ? null : "assignedTo")
+                }
+              >
+                <Search />
+              </button>
+              {openColumn === "assignedTo" && <Dropdown />}
                 </td>
-                <td className="px-4 py-2 text-gray-800 dark:text-gray-200">
-                  {task.assignedTo}
+
+
+                <td className="px-4 py-2 border-b border-gray-300">
+                <button
+                onClick={() =>
+                  setOpenColumn(openColumn === "startDate" ? null : "startDate")
+                }
+              >
+                <Search />
+              </button>
+              {openColumn === "startDate" && <Dropdown />}
                 </td>
-                <td className="px-4 py-2 text-gray-800 dark:text-gray-200">
-                  {task.startDate}
+
+
+                <td className="px-4 py-2 border-b border-gray-300">
+                  <button
+                onClick={() =>
+                  setOpenColumn(openColumn === "dueDate" ? null : "dueDate")
+                }
+              >
+                <Search />
+              </button>
+              {openColumn === "dueDate" && <Dropdown />}
                 </td>
-                <td className="px-4 py-2 text-gray-800 dark:text-gray-200">
-                  {task.dueDate}
+
+
+                <td className="px-4 py-2 border-b border-gray-300">
+                  <button
+                onClick={() =>
+                  setOpenColumn(openColumn === "priority" ? null : "priority")
+                }
+              >
+                <Search />
+              </button>
+              {openColumn === "priority" && <Dropdown />}
                 </td>
-                <td className="px-4 py-2 text-gray-800 dark:text-gray-200">
-                  {task.priorityNum}
-                </td>
-                <td className="px-4 py-2 text-gray-800 dark:text-gray-200">
-                  {task.completion}%
+
+
+                <td className="px-4 py-2 border-b border-gray-300">
+                <button
+                onClick={() =>
+                  setOpenColumn(openColumn === "completion" ? null : "completion")
+                }
+              >
+                <Search />
+              </button>
+              {openColumn === "completion" && <Dropdown />}
                 </td>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {tasks.map((task) => (
+                <tr
+                  key={task.id}
+                  className="border-b border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
+                >
+                  <td className="px-4 py-2 text-gray-800 dark:text-gray-200">
+                    {task.id}
+                  </td>
+                  <td className="px-4 py-2 text-gray-800 dark:text-gray-200">
+                    {task.subject}
+                  </td>
+                  <td className="px-4 py-2 text-gray-800 dark:text-gray-200">
+                    {task.status}
+                  </td>
+                  <td className="px-4 py-2 text-gray-800 dark:text-gray-200">
+                    {task.priority}
+                  </td>
+                  <td className="px-4 py-2 text-gray-800 dark:text-gray-200">
+                    {task.assignedTo}
+                  </td>
+                  <td className="px-4 py-2 text-gray-800 dark:text-gray-200">
+                    {task.startDate}
+                  </td>
+                  <td className="px-4 py-2 text-gray-800 dark:text-gray-200">
+                    {task.dueDate}
+                  </td>
+                  <td className="px-4 py-2 text-gray-800 dark:text-gray-200">
+                    {task.priorityNum}
+                  </td>
+                  <td className="px-4 py-2 text-gray-800 dark:text-gray-200">
+                    {task.completion}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-      
-        
-      </div>
-      <footer className="text-center text-sm text-gray-500  dark:text-gray-400 bg-gray-100 dark:bg-gray-900  mt-9 pt-14 pb-3 rounded-lg transition-colors duration-300">
+        <footer className="text-center text-sm text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-900 mt-9 pt-14 pb-3 rounded-lg transition-colors duration-300">
           <hr className="border-gray-300 dark:border-gray-600 mb-3" />
+          <p className="text-start">©2011-2025 DevExtreme App Inc.</p>
           <p className="text-start">
-            ©2011-2025 DevExtreme App Inc.
-          </p>
-          <p className="text-start">
-            All trademarks or registered trademarks are property of their respective owners.
+            All trademarks or registered trademarks are property of their
+            respective owners.
           </p>
         </footer>
+      </div>
     </div>
   );
 };
