@@ -10,7 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+<<<<<<< HEAD
     "date-fns": "^4.1.0",
+=======
+>>>>>>> 3d5c742c70173a07c98faa6b75559905cf57e873
     "devextreme": "^25.1.4",
     "devextreme-react": "^25.1.4",
     "lucide-react": "^0.540.0",
