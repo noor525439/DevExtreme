@@ -14,7 +14,7 @@ const Sidebar = ({extended}) => {
 
   return (      
     
-    <div className="flex  h-screen w-screen resize-none mb-2">
+    <div className="flex  h-screen w-screen overflow-y-scroll scrollbar-hide mb-2">
              <aside
   className={`min-h-screen bg-white dark:bg-gray-800 shadow-md transition-all duration-300 
   ${extended ? "w-64" : "w-20"}`}

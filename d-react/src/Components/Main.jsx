@@ -2,17 +2,11 @@ import React from "react";
 
 const Main = () => {
   return (
-    <div className="flex justify-around h-screen w-screen resize-none bg-gray-100 dark:bg-gray-900">
-
-      <main className="flex-1 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-200">
-
-
-        <div className="flex items-center justify-end space-x-4 shadow-md px-3 bg-white dark:bg-gray-800">
-      
-        </div>
+    <div className="flex justify-around h-screen w-screen bg-gray-100 dark:bg-gray-900">
+      <main className="flex-1  bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-200">
 
       
-        <div className="bg-gray-100 dark:bg-gray-900">
+        <div className="bg-gray-100  dark:bg-gray-900 ">
           <h1 className="mx-6 text-3xl font-semibold p-3">Home</h1>
 
           <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-5 mx-6">
