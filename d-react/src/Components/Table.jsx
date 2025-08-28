@@ -63,7 +63,7 @@ const Table = ({ openColumn, setOpenColumn, sortConfig, setSortConfig, currentTa
         <thead className="dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs">
           <tr>
             <th
-              className="px-4 py-3 border-b border-gray-300 cursor-pointer"
+              className="px-4 text-1xl py-3 border-b border-gray-300 cursor-pointer"
               onClick={() =>
                 setSortConfig((prev) => ({
                   key: "id",
@@ -71,6 +71,7 @@ const Table = ({ openColumn, setOpenColumn, sortConfig, setSortConfig, currentTa
                 }))
               }
             >
+              
               Task Id{" "}
               {sortConfig.key === "id" &&
                 (sortConfig.direction === "asc" ? "▲" : "▼")}

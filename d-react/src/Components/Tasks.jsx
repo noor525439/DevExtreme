@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import TasksData from "./TasksData";
-import { Search } from "lucide-react";
+import Table from "./Table";
 
 const Tasks = () => {
   const [openColumn, setOpenColumn] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
-
   const [filters, setFilters] = useState({});
   const [sortConfig, setSortConfig] = useState({ key: "id", direction: "asc" });
 
-
+  // Filtering
   let filteredTasks = TasksData.filter((task) => {
     return Object.entries(filters).every(([key, filterObj]) => {
       if (!filterObj?.value) return true;
@@ -36,101 +35,37 @@ const Tasks = () => {
     });
   });
 
-  
+  // Sorting
   const sortedTasks = [...filteredTasks].sort((a, b) => {
     if (a[sortConfig.key] < b[sortConfig.key]) return sortConfig.direction === "asc" ? -1 : 1;
     if (a[sortConfig.key] > b[sortConfig.key]) return sortConfig.direction === "asc" ? 1 : -1;
     return 0;
   });
 
-  
+  // Pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentTasks = sortedTasks.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredTasks.length / itemsPerPage);
-
   const startItem = indexOfFirstItem + 1;
   const endItem = Math.min(indexOfLastItem, filteredTasks.length);
-
-
-  const Dropdown = () => (
-    <div className="absolute mt-1 w-40 bg-white dark:bg-gray-800 shadow-md rounded-md text-0.5 z-50">
-      <ul>
-        <li className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">Equals</li>
-        <li className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">Does not Equal</li>
-        <li className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">Less than</li>
-        <li className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">Greater than</li>
-        <li className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">Between</li>
-        <li className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">Reset</li>
-      </ul>
-    </div>
-  );
 
   return (
     <div className="flex-1 p-8 pb-1 bg-gray-100 dark:bg-gray-900 min-h-screen transition-colors duration-300">
       <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-gray-100">Tasks</h1>
 
-      <div className="overflow-x-auto shadow-lg rounded-lg">
-        <table className="min-w-full text-sm text-left bg-white dark:bg-gray-800 transition-colors duration-300">
-          <thead className="dark:bg-gray-700 text-gray-600 dark:text-gray-300 uppercase text-xs">
-            <tr>
-              <th
-                className="px-4 py-3 border-b border-gray-300 cursor-pointer"
-                onClick={() =>
-                  setSortConfig((prev) => ({
-                    key: "id",
-                    direction: prev.key === "id" && prev.direction === "asc" ? "desc" : "asc",
-                  }))
-                }
-              >
-                Task Id{" "}
-                {sortConfig.key === "id" && (sortConfig.direction === "asc" ? "▲" : "▼")}
-              </th>
-              <th className="px-4 py-3 border-b border-gray-300">Subject</th>
-              <th className="px-4 py-3 border-b border-gray-300">Status</th>
-              <th className="px-4 py-3 border-b border-gray-300">Priority</th>
-              <th className="px-4 py-3 border-b border-gray-300">Assigned to</th>
-              <th className="px-4 py-3 border-b border-gray-300">Start date</th>
-              <th className="px-4 py-3 border-b border-gray-300">Due Date</th>
-              <th className="px-4 py-3 border-b border-gray-300">Priority Num</th>
-              <th className="px-4 py-3 border-b border-gray-300">Completion</th>
-            </tr>
+      {/* Table Component */}
+      <Table
+        openColumn={openColumn}
+        setOpenColumn={setOpenColumn}
+        sortConfig={sortConfig}
+        setSortConfig={setSortConfig}
+        currentTasks={currentTasks}
+        filters={filters}
+        setFilters={setFilters}
+      />
 
-      
-            <tr>
-              {["id", "subject", "status", "priority", "assignedTo", "startDate", "dueDate", "priorityNum", "completion"].map((col) => (
-                <td key={col} className="px-4 py-2 border-b border-gray-300">
-                  <button onClick={() => setOpenColumn(openColumn === col ? null : col)}>
-                    <Search />
-                  </button>
-                  {openColumn === col && <Dropdown />}
-                </td>
-              ))}
-            </tr>
-          </thead>
-
-          <tbody>
-            {currentTasks.map((task) => (
-              <tr
-                key={task.id}
-                className="border-b border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
-              >
-                <td className="px-4 py-2">{task.id}</td>
-                <td className="px-4 py-2">{task.subject}</td>
-                <td className="px-4 py-2">{task.status}</td>
-                <td className="px-4 py-2">{task.priority}</td>
-                <td className="px-4 py-2">{task.assignedTo}</td>
-                <td className="px-4 py-2">{task.startDate}</td>
-                <td className="px-4 py-2">{task.dueDate}</td>
-                <td className="px-4 py-2">{task.priorityNum}</td>
-                <td className="px-4 py-2">{task.completion}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      
+      {/* Pagination Controls */}
       <div className="flex justify-between items-center mt-4 px-4">
         <div className="text-gray-700 dark:text-gray-300">
           {startItem}–{endItem} of {filteredTasks.length} items
@@ -185,7 +120,7 @@ const Tasks = () => {
         </div>
       </div>
 
-    
+      {/* Footer */}
       <footer className="text-center text-sm text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-900 mt-9 pt-14 pb-3 rounded-lg transition-colors duration-300">
         <hr className="border-gray-300 dark:border-gray-600 mb-3" />
         <p className="text-start">©2011-2025 DevExtreme App Inc.</p>
