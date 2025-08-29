@@ -9,40 +9,50 @@ const Tasks = () => {
   const [filters, setFilters] = useState({});
   const [sortConfig, setSortConfig] = useState({ key: "id", direction: "asc" });
 
-  // Filtering
-  let filteredTasks = TasksData.filter((task) => {
-    return Object.entries(filters).every(([key, filterObj]) => {
-      if (!filterObj?.value) return true;
-      const taskValue = String(task[key] || "").toLowerCase();
-      const filterValue = filterObj.value.toLowerCase();
 
-      switch (filterObj.type) {
-        case "contains":
-          return taskValue.includes(filterValue);
-        case "not_contains":
-          return !taskValue.includes(filterValue);
-        case "starts_with":
-          return taskValue.startsWith(filterValue);
-        case "ends_with":
-          return taskValue.endsWith(filterValue);
-        case "equals":
-          return taskValue === filterValue;
-        case "not_equals":
-          return taskValue !== filterValue;
-        default:
-          return true;
-      }
-    });
+   
+let filteredTasks = TasksData.filter((task) => {
+  return Object.entries(filters).every(([key, filterObj]) => {
+    
+    if (key === "priority") {
+      if (!filterObj) return true;
+      return filterObj === "" || task.priority === filterObj;
+    }
+
+
+    if (!filterObj?.value) return true;
+    const taskValue = String(task[key] || "").toLowerCase();
+    const filterValue = filterObj.value.toLowerCase();
+
+    switch (filterObj.type) {
+      case "contains":
+        return taskValue.includes(filterValue);
+      case "not_contains":
+        return !taskValue.includes(filterValue);
+      case "starts_with":
+        return taskValue.startsWith(filterValue);
+      case "ends_with":
+        return taskValue.endsWith(filterValue);
+      case "equals":
+        return taskValue === filterValue;
+      case "not_equals":
+        return taskValue !== filterValue;
+      default:
+        return true;
+    }
   });
+});
 
-  // Sorting
+
+
+  
   const sortedTasks = [...filteredTasks].sort((a, b) => {
     if (a[sortConfig.key] < b[sortConfig.key]) return sortConfig.direction === "asc" ? -1 : 1;
     if (a[sortConfig.key] > b[sortConfig.key]) return sortConfig.direction === "asc" ? 1 : -1;
     return 0;
   });
 
-  // Pagination
+  
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentTasks = sortedTasks.slice(indexOfFirstItem, indexOfLastItem);
@@ -54,7 +64,7 @@ const Tasks = () => {
     <div className="flex-1 p-8 pb-1 bg-gray-100 dark:bg-gray-900 min-h-screen transition-colors duration-300">
       <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-gray-100">Tasks</h1>
 
-      {/* Table Component */}
+
       <Table
         openColumn={openColumn}
         setOpenColumn={setOpenColumn}
@@ -65,7 +75,7 @@ const Tasks = () => {
         setFilters={setFilters}
       />
 
-      {/* Pagination Controls */}
+    
       <div className="flex justify-between items-center mt-4 px-4">
         <div className="text-gray-700 dark:text-gray-300">
           {startItem}–{endItem} of {filteredTasks.length} items
@@ -120,7 +130,7 @@ const Tasks = () => {
         </div>
       </div>
 
-      {/* Footer */}
+    
       <footer className="text-center text-sm text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-900 mt-9 pt-14 pb-3 rounded-lg transition-colors duration-300">
         <hr className="border-gray-300 dark:border-gray-600 mb-3" />
         <p className="text-start">©2011-2025 DevExtreme App Inc.</p>

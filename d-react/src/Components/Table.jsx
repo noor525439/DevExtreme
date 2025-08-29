@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Search } from "lucide-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -6,7 +6,11 @@ import { Calendar } from "lucide-react";
 
 
 const Table = ({ openColumn, setOpenColumn, sortConfig, setSortConfig, currentTasks, filters, setFilters }) => {
+ 
+
   
+  
+
   const handleDropdownSelect = (column, type) => {
     if (type === "reset") {
       setFilters((prev) => ({
@@ -93,12 +97,10 @@ const Table = ({ openColumn, setOpenColumn, sortConfig, setSortConfig, currentTa
             <td className="px-4 py-2 border-b border-gray-300">{renderFilterInput("status")}</td>
             <td className="px-4 py-2 border-b border-gray-300">
             <select
-            value={filters["priority"] || ""}  
-            onChange={(e) =>
-            setFilters((prev) => ({ ...prev, priority: e.target.value }))
-           }
-            className="border-none text-1.2xl rounded  py-1 bg-white dark:bg-gray-800"
-            >
+    value={filters.priority || ""}
+    onChange={(e) => setFilters((prev) => ({ ...prev, priority: e.target.value }))}
+    className="border px-2 py-1 rounded bg-white dark:bg-gray-800"
+  >
     <option value="">(All)</option>
     <option value="Urgent">Urgent</option>
     <option value="High">High</option>
