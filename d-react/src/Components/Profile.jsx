@@ -156,7 +156,7 @@ const Profile = () => {
               value={tempText}
               onChange={(event) => setTempText(event.target.value)}
               disabled={!isEditing}
-              className="w-96 h-10 border-b border-gray-300  p-2 rounded resize-none overflow-hidden bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-200"
+              className="w-96 h-9 pt-2  border-b border-gray-300  p-2 rounded resize-none overflow-hidden bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-200"
               />
             </div>
      

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Home,Folder,ChevronRight} from "lucide-react";
-import Main from "./Main";
 import Profile from "./Profile";
 import Tasks from "./Tasks";
 import { Routes, Route, Link } from "react-router-dom";
+import Dashboard from "./Dashboard";
 
 const Sidebar = ({extended}) => {
   
@@ -69,7 +69,7 @@ const Sidebar = ({extended}) => {
       
           <main className="flex-1 bg-gray-100 ">
   <Routes>
-        <Route path="/" element={<Main/>}/>
+        <Route path="/" element={<Dashboard/>}/>
         <Route path="/Profile" element={<Profile/>}></Route>
         <Route path="/Tasks" element={<Tasks/>}></Route>
   </Routes>
