@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   LineChart,
   Line,
@@ -16,7 +16,7 @@ import {
   Cell,
 } from "recharts";
 
-
+/* --------------------- sample data (unchanged) --------------------- */
 const transactionsData = [
   { day: "Mon", value: 200 },
   { day: "Tue", value: 400 },
@@ -27,7 +27,6 @@ const transactionsData = [
   { day: "Sun", value: 380 },
 ];
 
-
 const salesOrdersRevenue = [
   { name: "A", sales: 100, orders: 200, revenue: 300 },
   { name: "B", sales: 200, orders: 250, revenue: 350 },
@@ -35,7 +34,6 @@ const salesOrdersRevenue = [
   { name: "D", sales: 180, orders: 280, revenue: 370 },
   { name: "E", sales: 220, orders: 320, revenue: 420 },
 ];
-
 
 const cpuData = [
   { name: "A", value: 20 },
@@ -62,7 +60,6 @@ const incomeData = [
   { month: "Jul", register: 90, premium: 220 },
 ];
 
-
 const pieData = [
   { name: "Gross Sales", value: 492, color: "#8b5cf6" },
   { name: "Purchases", value: 87000, color: "#f97316" },
@@ -77,85 +74,152 @@ const barData = [
   { year: "2019", sales: 50, orders: 42 },
 ];
 
-
 const expensesData = Array.from({ length: 20 }, (_, i) => ({ name: i, value: Math.random() * 50 }));
 const budgetData = Array.from({ length: 20 }, (_, i) => ({ name: i, value: Math.random() * 60 }));
 const balanceData = Array.from({ length: 20 }, (_, i) => ({ name: i, value: Math.random() * 40 }));
 
+/* ----------------- Dashboard (dark-mode aware) ----------------- */
 export default function Dashboard() {
-  return (
-    <div className="p-6 bg-gray-100 min-h-screen space-y-6">
-     <h1 className="text-3xl font-bold text-center">Status Statistics</h1>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+  // detect dark mode (class on <html> OR user preference)
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window === "undefined") return false;
+    const root = document.documentElement;
+    const systemPref = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    return root.classList.contains("dark") || !!systemPref;
+  });
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const root = document.documentElement;
     
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:col-span-2">
+    const mql = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)");
+    const handlePref = (e) => setIsDark(root.classList.contains("dark") || !!e.matches);
+
+    if (mql) {
   
-          <div className="bg-white p-4 rounded-2xl shadow h-48">
-            <h3 className="text-2xl font-bold">Transactions</h3>
+      if (mql.addEventListener) mql.addEventListener("change", handlePref);
+      else if (mql.addListener) mql.addListener(handlePref);
+    }
+
+
+    const obs = new MutationObserver(() => {
+      setIsDark(root.classList.contains("dark") || (mql && mql.matches));
+    });
+    obs.observe(root, { attributes: true, attributeFilter: ["class"] });
+
+    return () => {
+      if (mql) {
+        if (mql.removeEventListener) mql.removeEventListener("change", handlePref);
+        else if (mql.removeListener) mql.removeListener(handlePref);
+      }
+      obs.disconnect();
+    };
+  }, []);
+
+
+  const theme = {
+    axis: isDark ? "#9CA3AF" : "#6B7280", 
+    subText: isDark ? "#9CA3AF" : "#6B7280",
+    text: isDark ? "#E5E7EB" : "#111827",
+    cardBg: isDark ? "#0f1724" : "#ffffff", 
+    tooltipBg: isDark ? "#0b1220" : "#ffffff",
+    tooltipText: isDark ? "#E5E7EB" : "#111827",
+    gridFill: isDark ? "rgba(255,255,255,0.03)" : "rgba(0,0,0,0.04)",
+    orange: "#f97316",
+    cyan: "#0ea5e9",
+    blue: "#2563eb",
+    purple: "#8b5cf6",
+    teal: "#14b8a6",
+    green: "#22c55e",
+    red: "#ef4444",
+  };
+
+  const tooltipProps = {
+    contentStyle: {
+      backgroundColor: theme.tooltipBg,
+      border: "1px solid rgba(0,0,0,0.06)",
+      color: theme.tooltipText,
+      boxShadow: "0 1px 6px rgba(0,0,0,0.08)",
+      borderRadius: 6,
+    },
+    itemStyle: { color: theme.tooltipText },
+    cursor: { stroke: isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)" },
+  };
+
+  return (
+    <div className={`p-6 min-h-screen space-y-6 ${isDark ? "bg-gray-900" : "bg-gray-100"}`}>
+      <h1 className={`text-3xl font-bold text-center ${isDark ? "text-gray-100" : "text-gray-900"}`}>Status Statistics</h1>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:col-span-2">
+          <div className={`p-4 rounded-2xl shadow h-48 ${isDark ? "bg-gray-800" : "bg-white"}`}>
+            <h3 className={`text-2xl font-bold ${isDark ? "text-gray-100" : "text-gray-900"}`}>Transactions</h3>
             <div className="flex items-center justify-between">
-              <p className="text-xl font-bold">1352</p>
+              <p className={`text-xl font-bold ${isDark ? "text-gray-100" : "text-gray-900"}`}>1352</p>
               <span className="text-green-500 text-xl">+1.37%</span>
             </div>
-            <ResponsiveContainer width="100%" height="80%">
-              <LineChart data={transactionsData}>
-                <Tooltip />
-                <Line type="linear" dataKey="value" stroke="#f97316" strokeWidth={2} dot={false} />
-              </LineChart>
-            </ResponsiveContainer>
+            <div className="h-28 mt-2">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={transactionsData}>
+                  <Tooltip {...tooltipProps} />
+                  <Line type="linear" dataKey="value" stroke={theme.orange} strokeWidth={2} dot={false} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
           </div>
 
-    
-          <div className="bg-white p-4 rounded-2xl shadow h-48">
-            <h3 className="text-2xl font-bold">Sales Orders Revenue</h3>
-            <div className="flex space-x-6 text-ls mt-1 mb-2">
+          <div className={`p-4 rounded-2xl shadow h-48 ${isDark ? "bg-gray-800" : "bg-white"}`}>
+            <h3 className={`text-2xl font-bold ${isDark ? "text-gray-100" : "text-gray-900"}`}>Sales Orders Revenue</h3>
+            <div className={`flex space-x-6 text-ls mt-1 mb-2 ${isDark ? "text-gray-200" : "text-gray-700"}`}>
               <span>Sales: <b>563</b></span>
               <span>Orders: <b>720</b></span>
               <span>Revenue: <b>5900</b></span>
             </div>
-            <ResponsiveContainer width="100%" height="70%">
-              <AreaChart data={salesOrdersRevenue}>
-                <Tooltip />
-                <Area type="monotone" dataKey="sales" stackId="1" stroke="#0ea5e9" fill="#0ea5e9" />
-                <Area type="monotone" dataKey="orders" stackId="1" stroke="#2563eb" fill="#2563eb" />
-                <Area type="monotone" dataKey="revenue" stackId="1" stroke="#1e3a8a" fill="#1e3a8a" />
-              </AreaChart>
-            </ResponsiveContainer>
+            <div className="h-28 mt-1">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={salesOrdersRevenue}>
+                  <Tooltip {...tooltipProps} />
+                  <Area type="monotone" dataKey="sales" stackId="1" stroke={theme.cyan} fill={theme.cyan} />
+                  <Area type="monotone" dataKey="orders" stackId="1" stroke={theme.blue} fill={theme.blue} />
+                  <Area type="monotone" dataKey="revenue" stackId="1" stroke={theme.blue} fill={theme.blue} />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
           </div>
 
-        
-          <div className="bg-white p-4 rounded-2xl shadow h-48">
-            <h3 className="text-2xl font-bold">Sales Analytics</h3>
+          <div className={`p-4 rounded-2xl shadow h-48 ${isDark ? "bg-gray-800" : "bg-white"}`}>
+            <h3 className={`text-2xl font-bold ${isDark ? "text-gray-100" : "text-gray-900"}`}>Sales Analytics</h3>
             <div className="flex items-center justify-between">
-              <p className="text-xl font-bold">27,632</p>
+              <p className={`text-xl font-bold ${isDark ? "text-gray-100" : "text-gray-900"}`}>27,632</p>
               <p className="text-blue-500 text-xl">78%</p>
             </div>
-            <div className="w-full bg-gray-200 h-2 rounded-full mt-2">
+            <div className={`w-full ${isDark ? "bg-gray-700" : "bg-gray-200"} h-2 rounded-full mt-2`}>
               <div className="bg-blue-500 h-2 rounded-full" style={{ width: "78%" }}></div>
             </div>
           </div>
 
-  
-          <div className="bg-white p-4 rounded-2xl shadow h-48 grid grid-cols-2 gap-4">
+          <div className={`p-4 rounded-2xl shadow h-48 grid grid-cols-2 gap-4 ${isDark ? "bg-gray-800" : "bg-white"}`}>
             <div>
-              <h3 className="text-2xl font-bold">CPU</h3>
-              <p className="text-xl mb-1">55%</p>
+              <h3 className={`text-2xl font-bold ${isDark ? "text-gray-100" : "text-gray-900"}`}>CPU</h3>
+              <p className={`text-xl mb-1 ${isDark ? "text-gray-100" : "text-gray-900"}`}>55%</p>
               <div className="h-20">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={cpuData}>
-                    <Tooltip />
-                    <Bar dataKey="value" fill="#ef4444" radius={[6, 6, 0, 0]} />
+                    <Tooltip {...tooltipProps} />
+                    <Bar dataKey="value" fill={theme.red} radius={[6, 6, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
             </div>
             <div>
-              <h3 className="text-2xl font-bold">Memory</h3>
-              <p className="text-xl mb-1">123,65</p>
+              <h3 className={`text-2xl font-bold ${isDark ? "text-gray-100" : "text-gray-900"}`}>Memory</h3>
+              <p className={`text-xl mb-1 ${isDark ? "text-gray-100" : "text-gray-900"}`}>123,65</p>
               <div className="h-20">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={memoryData}>
-                    <Tooltip />
-                    <Bar dataKey="value" fill="#06b6d4" radius={[6, 6, 0, 0]} />
+                    <Tooltip {...tooltipProps} />
+                    <Bar dataKey="value" fill={theme.cyan} radius={[6, 6, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -163,103 +227,108 @@ export default function Dashboard() {
           </div>
         </div>
 
-        
-        <div className="bg-white p-6 rounded-2xl shadow lg:row-span-2 h-[400px]">
-          <h2 className="text-2xl font-bold mb-2">Income Statistics</h2>
-          <p className="text-xl text-gray-500 mb-2">Monthly Increase</p>
-          <p className="text-2xl font-bold mb-4">67,842</p>
-          <ResponsiveContainer width="100%" height="75%">
-            <LineChart data={incomeData}>
-              <XAxis dataKey="month" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Line type="monotone" dataKey="register" stroke="#8b5cf6" strokeWidth={2} dot={false} />
-              <Line type="monotone" dataKey="premium" stroke="#14b8a6" strokeWidth={2} dot={false} />
-            </LineChart>
-          </ResponsiveContainer>
+        <div className={`p-6 rounded-2xl shadow lg:row-span-2 h-[400px] ${isDark ? "bg-gray-800" : "bg-white"}`}>
+          <h2 className={`text-2xl font-bold mb-2 ${isDark ? "text-gray-100" : "text-gray-900"}`}>Income Statistics</h2>
+          <p className={`text-xl ${isDark ? "text-gray-300" : "text-gray-500"} mb-2`}>Monthly Increase</p>
+          <p className={`text-2xl font-bold mb-4 ${isDark ? "text-gray-100" : "text-gray-900"}`}>67,842</p>
+          <div className="h-72">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={incomeData}>
+                <XAxis dataKey="month" stroke={theme.axis} tick={{ fill: theme.subText }} />
+                <YAxis stroke={theme.axis} tick={{ fill: theme.subText }} />
+                <Tooltip {...tooltipProps} />
+                <Legend wrapperStyle={{ color: theme.subText }} />
+                <Line type="monotone" dataKey="register" stroke={theme.purple} strokeWidth={2} dot={false} />
+                <Line type="monotone" dataKey="premium" stroke={theme.teal} strokeWidth={2} dot={false} />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       </div>
 
-     <h1 className="text-3xl font-bold text-center">Sales Statistics</h1>
+      <h1 className={`text-3xl font-bold text-center ${isDark ? "text-gray-100" : "text-gray-900"}`}>Sales Statistics</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-white p-6 rounded-2xl shadow h-[400px]">
+        <div className={`p-6 rounded-2xl shadow h-[400px] ${isDark ? "bg-gray-800" : "bg-white"}`}>
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-2xl font-bold">Overall Sales</h3>
-            <span className="text-xl text-gray-500">Last 30 days</span>
+            <h3 className={`text-2xl font-bold ${isDark ? "text-gray-100" : "text-gray-900"}`}>Overall Sales</h3>
+            <span className={`text-xl ${isDark ? "text-gray-300" : "text-gray-500"}`}>Last 30 days</span>
           </div>
-          <ResponsiveContainer width="100%" height="80%">
-            <PieChart>
-              <Pie data={pieData} dataKey="value" outerRadius={120} label>
-                {pieData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
-                ))}
-              </Pie>
-              <Tooltip />
-            </PieChart>
-          </ResponsiveContainer>
-          <div className="flex justify-around mt-4 text-sm">
+          <div className="h-72">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie data={pieData} dataKey="value" outerRadius={120} label>
+                  {pieData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip {...tooltipProps} />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+          <div className={`flex justify-around mt-4 text-sm ${isDark ? "text-gray-300" : "text-gray-700"}`}>
             <div>Gross Sales <b>492</b> <span className="text-green-500">+0.5%</span></div>
             <div>Purchases <b>87k</b> <span className="text-green-500">+0.8%</span></div>
             <div>Tax Return <b>882</b> <span className="text-red-500">-0.4%</span></div>
           </div>
         </div>
 
-        
-        <div className="bg-white p-6 rounded-2xl shadow h-[400px]">
+        <div className={`p-6 rounded-2xl shadow h-[400px] ${isDark ? "bg-gray-800" : "bg-white"}`}>
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-2xl font-bold">Sales Statistics</h3>
-            <span className="text-xl text-gray-500">Last 7 days</span>
+            <h3 className={`text-2xl font-bold ${isDark ? "text-gray-100" : "text-gray-900"}`}>Sales Statistics</h3>
+            <span className={`text-xl ${isDark ? "text-gray-300" : "text-gray-500"}`}>Last 7 days</span>
           </div>
-          <ResponsiveContainer width="100%" height="80%">
-            <BarChart data={barData}>
-              <XAxis dataKey="year" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="sales" fill="#8b5cf6" />
-              <Bar dataKey="orders" fill="#f97316" />
-            </BarChart>
-          </ResponsiveContainer>
+          <div className="h-72">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={barData}>
+                <XAxis dataKey="year" stroke={theme.axis} tick={{ fill: theme.subText }} />
+                <YAxis stroke={theme.axis} tick={{ fill: theme.subText }} />
+                <Tooltip {...tooltipProps} />
+                <Legend wrapperStyle={{ color: theme.subText }} />
+                <Bar dataKey="sales" fill={theme.purple} />
+                <Bar dataKey="orders" fill={theme.orange} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       </div>
 
-    
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-      
-        <div className="bg-white p-4 rounded-2xl shadow h-72">
-          <h3 className="text-2xl font-bold">Total Expenses</h3>
-          <p className="text-xl ">8742</p>
+        <div className={`p-4 rounded-2xl shadow h-72 ${isDark ? "bg-gray-800" : "bg-white"}`}>
+          <h3 className={`text-2xl font-bold ${isDark ? "text-gray-100" : "text-gray-900"}`}>Total Expenses</h3>
+          <p className={`text-xl ${isDark ? "text-gray-100" : "text-gray-900"}`}>8742</p>
           <div className="h-32">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={expensesData}>
-                <Bar dataKey="value" fill="#8b5cf6" radius={[4, 4, 0, 0]} />
+                <Tooltip {...tooltipProps} />
+                <Bar dataKey="value" fill={theme.purple} radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        
-        <div className="bg-white pt-4 rounded-2xl shadow h-72">
-          <h3 className="text-2xl font-bold">Total Budget</h3>
-          <p className="text-xl ">47,840</p>
-          <div className="h-32">
+        <div className={`pt-4 rounded-2xl shadow h-72 ${isDark ? "bg-gray-800" : "bg-white"}`}>
+          <div className="p-4">
+            <h3 className={`text-2xl font-bold ${isDark ? "text-gray-100" : "text-gray-900"}`}>Total Budget</h3>
+            <p className={`text-xl ${isDark ? "text-gray-100" : "text-gray-900"}`}>47,840</p>
+          </div>
+          <div className="h-32 p-4">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={budgetData}>
-                <Bar dataKey="value" fill="#22c55e" radius={[4, 4, 0, 0]} />
+                <Tooltip {...tooltipProps} />
+                <Bar dataKey="value" fill={theme.green} radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-      
-        <div className="bg-white p-6 rounded-2xl shadow h-72">
-          <h3 className="text-2xl font-bold">Total Balance</h3>
-          <p className="text-xl ">$7,243</p>
+        <div className={`p-6 rounded-2xl shadow h-72 ${isDark ? "bg-gray-800" : "bg-white"}`}>
+          <h3 className={`text-2xl font-bold ${isDark ? "text-gray-100" : "text-gray-900"}`}>Total Balance</h3>
+          <p className={`text-xl ${isDark ? "text-gray-100" : "text-gray-900"}`}>$7,243</p>
           <div className="h-32">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={balanceData}>
-                <Bar dataKey="value" fill="#ef4444" radius={[4, 4, 0, 0]} />
+                <Tooltip {...tooltipProps} />
+                <Bar dataKey="value" fill={theme.red} radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
