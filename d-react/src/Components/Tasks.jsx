@@ -117,7 +117,7 @@ const Tasks = () => {
       />
 
   
-      <div className="flex justify-between items-center mt-6 px-4 py-3 bg-white dark:bg-gray-800 rounded-lg shadow-md transition-colors duration-300">
+      <div className="flex justify-between items-center px-4 py-3 bg-white dark:bg-gray-800 rounded-lg shadow-md transition-colors duration-300">
         <div className="text-gray-700 dark:text-gray-300 text-sm">
           {startItem}–{endItem} of {filteredTasks.length} items
         </div>

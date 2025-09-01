@@ -78,7 +78,7 @@ const Table = ({
     </div>
   );
 
-  // ✅ Local date formatter
+
   const formatLocalDate = (date) => {
     if (!date) return "";
     const year = date.getFullYear();
@@ -192,7 +192,7 @@ const Table = ({
                       },
                     }))
                   }
-                  className="w-28 px-2 py-1 rounded dark:border-gray-600 
+                  className="w-12  py-1 rounded dark:border-gray-600 
                              bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 
                              focus:outline-none focus:ring-1 focus:ring-blue-500"
         
@@ -218,7 +218,7 @@ const Table = ({
                       },
                     }))
                   }
-                  className="w-28 px-2 py-1 rounded  
+                  className="w-12 px-2 py-1 rounded  
                              bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 
                              focus:outline-none focus:ring-1 focus:ring-blue-500"
               
