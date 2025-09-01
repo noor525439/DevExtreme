@@ -1,5 +1,6 @@
 import React from "react";
-import useDarkMode from "../hooks/useDarkMode";
+import useDarkMode from "../hooks/useDarkMode"
+import { Sun , Moon} from "lucide-react";
 
 
 const DarkModeToggle = () => {
@@ -12,7 +13,7 @@ const DarkModeToggle = () => {
       className="  text-2xl
                  text-gray-800 dark:text-gray-200 transition-colors duration-300"
     >
-      {darkMode ? "🌙"  :  "🌞" }
+      {darkMode ? <Sun size={32}/>  :  <Moon size={32}/> }
     </button>
   );
 };

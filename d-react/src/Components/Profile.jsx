@@ -88,7 +88,7 @@ const Profile = () => {
 
         
           <div className="">
-            <label className="block text-gray-600 dark:text-gray-400">Notes:</label>
+            <label className="block text-gray-600 dark:text-gray-400">Notes</label>
             <textarea
               value={tempText}
               onChange={(e) => setTempText(e.target.value)}
@@ -113,7 +113,7 @@ const Profile = () => {
       
       <footer className="text-sm text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-900 mt-10 pt-10 rounded-lg px-6">
         <hr className="mb-2 border-gray-300 dark:border-gray-700" />
-        <p>©2011-2025 DevExtreme App Inc.</p>
+        <p>© 2011-2025 DevExtreme App Inc.</p>
         <p>All trademarks or registered trademarks are property of their respective owners.</p>
       </footer>
     </div>
