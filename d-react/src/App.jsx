@@ -6,7 +6,7 @@ import SignUp from './Components/SignUp';
 
 const Layout = () => {
   return (
-    <div className='flex bg-white text-black dark:bg-gray-900 dark:text-white'>
+    <div className='flex bg-white text-black dark:bg-gray-900 dark:text-white' style={{height:"100vh"}}>
       <Navbar/>
     </div>
   );

@@ -14,12 +14,12 @@ const Navbar = () => {
     <div className="absolute right-4 top-14 mt-1 w-48 bg-white dark:bg-gray-800 shadow-lg rounded-md text-xl z-50 border border-gray-200 dark:border-gray-700">
       <ul>
         <li className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer flex items-center gap-3">
-        <User size={18} />
-            <Link to="/Profile">Profile</Link>
+          <User size={18} />
+          <Link to="/Profile">Profile</Link>
         </li>
-        <li className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer flex items-center gap-3  border-gray-200 dark:border-gray-700">
+        <li className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer flex items-center gap-3 border-t border-gray-200 dark:border-gray-700">
           <LogOut size={18} />
-           <Link to="/SignUp">Log out</Link>
+          <Link to="/SignUp">Log out</Link>
         </li>
       </ul>
     </div>
@@ -27,8 +27,8 @@ const Navbar = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
-      
-      <div className="flex justify-between items-center shadow-lg px-6 py-2 border-b border-gray-300 bg-white dark:bg-gray-800 transition-colors duration-300 relative">
+
+      <div className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center shadow-lg px-6 py-2 border-b border-gray-300 bg-white dark:bg-gray-800 transition-colors duration-300">
         <div className="flex items-center gap-3">
           <img
             onClick={() => setExtended(!extended)}
@@ -37,7 +37,7 @@ const Navbar = () => {
             className="h-10 cursor-pointer hover:opacity-80 transition-opacity"
           />
           <h1 className="font-semibold text-2xl text-gray-800 dark:text-gray-200">
-            DevExtreme App
+            App
           </h1>
         </div>
 
@@ -55,8 +55,9 @@ const Navbar = () => {
         </div>
       </div>
 
-  
-      <div className="flex flex-1">
+      
+      <div className="flex flex-1 pt-16">
+        
         <Sidebar extended={extended} />
       </div>
     </div>

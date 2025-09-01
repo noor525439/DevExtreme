@@ -117,6 +117,8 @@ export default function Dashboard() {
     };
   }, []);
 
+ 
+
 
   const theme = {
     axis: isDark ? "#9CA3AF" : "#6B7280", 
@@ -146,6 +148,9 @@ export default function Dashboard() {
     itemStyle: { color: theme.tooltipText },
     cursor: { stroke: isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)" },
   };
+
+
+ 
 
   return (
     <div className={`p-6 min-h-screen space-y-6 ${isDark ? "bg-gray-900" : "bg-gray-100"}`}>
@@ -333,6 +338,8 @@ export default function Dashboard() {
             </ResponsiveContainer>
           </div>
         </div>
+
+
       </div>
     </div>
   );

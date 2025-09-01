@@ -176,7 +176,7 @@ const Tasks = () => {
   
       <footer className="text-center text-sm text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-900 mt-10 pt-6 pb-4 rounded-lg transition-colors duration-300">
         <hr className="border-gray-300 dark:border-gray-700 mb-3" />
-        <p className="text-start">©2011-2025 DevExtreme App Inc.</p>
+        <p className="text-start">©2011-2025 App Inc.</p>
         <p className="text-start">
           All trademarks or registered trademarks are property of their respective owners.
         </p>
