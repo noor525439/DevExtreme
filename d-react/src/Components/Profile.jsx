@@ -87,8 +87,8 @@ const Profile = () => {
           ))}
 
         
-          <div className="">
-            <label className="block text-gray-600 dark:text-gray-400">Notes</label>
+          <div className="gap-3">
+            <label className="block text-gray-600  dark:text-gray-400">Notes</label>
             <textarea
               value={tempText}
               onChange={(e) => setTempText(e.target.value)}

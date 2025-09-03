@@ -11,7 +11,7 @@ const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const Dropdown = () => (
-    <div className="absolute right-4 top-14 mt-1 w-48 bg-white dark:bg-gray-800 shadow-lg rounded-md text-xl z-50 border border-gray-200 dark:border-gray-700">
+    <div className="absolute right-4 top-14 mt-1 w-48 bg-white dark:bg-gray-800 shadow-md rounded-md text-xl z-50 border border-gray-200 dark:border-gray-700">
       <ul>
         <li className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer flex items-center gap-3">
           <User size={18} />
@@ -26,9 +26,9 @@ const Navbar = () => {
   );
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <div className="h-screen flex flex-col bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
 
-      <div className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center shadow-lg px-6 py-2 border-b border-gray-300 bg-white dark:bg-gray-800 transition-colors duration-300">
+      <div className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center  px-6 py-2 border-b border-gray-300 bg-white dark:bg-gray-800 transition-colors duration-300">
         <div className="flex items-center gap-3">
           <img
             onClick={() => setExtended(!extended)}

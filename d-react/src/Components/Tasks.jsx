@@ -5,7 +5,7 @@ import Table from "./Table";
 const Tasks = () => {
   const [openColumn, setOpenColumn] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
   const [filters, setFilters] = useState({});
   const [sortConfig, setSortConfig] = useState({ key: "id", direction: "asc" });
 
