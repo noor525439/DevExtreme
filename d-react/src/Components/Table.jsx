@@ -12,6 +12,7 @@ const Table = ({
   filters,
   setFilters,
   loading,
+  hasMore,  
 }) => {
 
   const handleDropdownSelect = (column, type) => {
@@ -102,7 +103,7 @@ const Table = ({
   return (
     <div>
       <table className="w-full text-sm text-left bg-white dark:bg-gray-800 transition-colors duration-300">
-        <thead className="dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs">
+        <thead className=" dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs">
           <tr>
             {[
               { key: "id", label: "Task Id" },
@@ -117,7 +118,7 @@ const Table = ({
             ].map((col) => (
               <th
                 key={col.key}
-                className="px-4 py-3 border-b border-gray-300 dark:border-gray-600 cursor-pointer"
+                className=" sticky top-0 z-10 text-white bg-purple-900 dark:bg-gray-700 px-4 py-3 border-b border-gray-300 dark:border-gray-600 cursor-pointer"
                 onClick={() => handleSort(col.key)}
               >
                 {col.label}{" "}
@@ -219,48 +220,60 @@ const Table = ({
           </tr>
         </thead>
 
-        <tbody>
-          {currentTasks.length > 0 ? (
-            <>
-              {currentTasks.map((task) => (
-                <tr
-                  key={task.id}
-                  className="border-b py-3 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700"
-                >
-                  <td className="px-4 py-2">{task.id}</td>
-                  <td className="px-4 py-2">{task.subject}</td>
-                  <td className="px-4 py-2">{task.status}</td>
-                  <td className="px-4 py-2">{task.priority}</td>
-                  <td className="px-4 py-2">{task.assignedTo}</td>
-                  <td className="px-4 py-2">{task.startDate}</td>
-                  <td className="px-4 py-2">{task.dueDate}</td>
-                  <td className="px-4 py-2">{task.priorityNum}</td>
-                  <td className="px-4 py-2">{task.completion}</td>
-                </tr>
-              ))}
+       <tbody>
 
-          
-              {loading && (
-                <tr>
-                  <td colSpan="9" className="text-center py-6">
-                    <div className="flex justify-center items-center gap-3">
-                      <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-                      <span className="text-gray-700 dark:text-gray-300">
-                        Loading...
-                      </span>
-                    </div>
-                  </td>
-                </tr>
-              )}
-            </>
-          ) : (
-            <tr>
-              <td colSpan="9" className="text-center py-6">
-                No tasks found
-              </td>
-            </tr>
-          )}
-        </tbody>
+  {currentTasks.length > 0 ? (
+    <>
+      {currentTasks.map((task) => (
+        <tr
+          key={task.id}
+          className="border-b py-3 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700"
+        >
+          <td className="px-4 py-2">{task.id}</td>
+          <td className="px-4 py-2">{task.subject}</td>
+          <td className="px-4 py-2">{task.status}</td>
+          <td className="px-4 py-2">{task.priority}</td>
+          <td className="px-4 py-2">{task.assignedTo}</td>
+          <td className="px-4 py-2">{task.startDate}</td>
+          <td className="px-4 py-2">{task.dueDate}</td>
+          <td className="px-4 py-2">{task.priorityNum}</td>
+          <td className="px-4 py-2">{task.completion}</td>
+        </tr>
+      ))}
+
+
+      {hasMore && (
+        <tr>
+          <td colSpan="9" className="text-center py-6">
+            <div className="flex justify-center items-center gap-3">
+              <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+              <span className="text-gray-700 dark:text-gray-300">
+                Loading...
+              </span>
+            </div>
+          </td>
+        </tr>
+      )}
+
+    
+      {!hasMore && (
+        <tr>
+          <td colSpan="9" className="text-center py-6 text-gray-700 dark:text-gray-300">
+            No more tasks
+          </td>
+        </tr>
+      )}
+    </>
+  ) : (
+    <tr>
+      <td colSpan="9" className="text-center py-6">
+        No tasks found
+      </td>
+    </tr>
+  )}
+</tbody>
+
+
       </table>
     </div>
   );

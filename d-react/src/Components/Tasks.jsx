@@ -1,38 +1,47 @@
 import React, { useState, useEffect } from "react";
 import TasksData from "./TasksData";
 import Table from "./Table";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const Tasks = () => {
   const [visibleTasks, setVisibleTasks] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
   const [filters, setFilters] = useState({});
   const [sortConfig, setSortConfig] = useState({ key: "", direction: "asc" });
   const [openColumn, setOpenColumn] = useState(null);
+  const [loading, setLoading] = useState(false);
+
 
   useEffect(() => {
     if (TasksData.length > 0) {
-      // 🔹 Step 1: Show first 5 instantly
+    
       setVisibleTasks(TasksData.slice(0, 5));
 
-      // 🔹 Step 2: Show rest in chunks of 5
-      setLoading(true);
-      let index = 5;
-      const interval = setInterval(() => {
-        const nextChunk = TasksData.slice(index, index + 5);
-        setVisibleTasks((prev) => [...prev, ...nextChunk]);
-        index += 5;
+      
+    }}, []);  
+     
+ const fetchDataMore = () => {
+  setLoading(true); 
 
-        if (index >= TasksData.length) {
-          clearInterval(interval);
-          setLoading(false);
-        }
-      }, 3000);
+  const currentLength = visibleTasks.length;
+  const newTasks = TasksData.slice(currentLength, currentLength + 5);
 
-      return () => clearInterval(interval);
-    }
-  }, []);
+  setTimeout(() => {
+    setVisibleTasks((prev) => {
+      const updated = [...prev, ...newTasks];
 
-  
+      if (updated.length >= TasksData.length) {
+        setHasMore(false);
+      }
+
+      return updated;
+    });
+
+    setLoading(false);
+  }, 1000); 
+};
+
+
   const applyFilters = (tasks) => {
     return tasks.filter((task) => {
       return Object.keys(filters).every((key) => {
@@ -64,7 +73,7 @@ const Tasks = () => {
     });
   };
 
-  // ✅ Apply sorting
+  
   const applySorting = (tasks) => {
     if (!sortConfig.key) return tasks;
 
@@ -78,7 +87,6 @@ const Tasks = () => {
     });
   };
 
-  // 🔹 Final tasks after filter + sort
   const processedTasks = applySorting(applyFilters(visibleTasks));
 
   return (
@@ -86,17 +94,29 @@ const Tasks = () => {
       <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-gray-100">
         Tasks
       </h1>
+      <InfiniteScroll
+        dataLength={visibleTasks.length}
+        next={fetchDataMore}
+        hasMore={hasMore}
+      scrollableTarget="tableScrollContainer" 
+      >
 
-      <Table
+    <div  
+     id="tableScrollContainer"
+     className="overflow-y-auto bg-white dark:bg-gray-800 rounded-lg shadow-md max-h-[400px]">
+        <Table
+         loading={loading}
         currentTasks={processedTasks}
-        loading={loading}
         openColumn={openColumn}
         setOpenColumn={setOpenColumn}
         sortConfig={sortConfig}
         setSortConfig={setSortConfig}
         filters={filters}
         setFilters={setFilters}
-      />
+         hasMore={hasMore}
+      /></div>
+  
+      </InfiniteScroll> 
     </div>
   );
 };
