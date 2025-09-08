@@ -1,13 +1,15 @@
 import React from 'react'
-import Navbar from './Components/Navbar'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LogIn from './Components/LogIn';
 import SignUp from './Components/SignUp';
+import Navbar from './Components/Navbar';
+
 
 const Layout = () => {
   return (
-    <div className='flex bg-white text-black dark:bg-gray-900 dark:text-white' style={{height:"100vh"}}>
-      <Navbar/>
+    <div>
+    <Navbar/>
+  
     </div>
   );
 };

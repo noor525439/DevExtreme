@@ -5,14 +5,14 @@ import Tasks from "./Tasks";
 
 const componentsConfig = [
   {
-    name: "Home",
+    name: "Dashboard",
     path: "/",
-    icon: "Home",
+    icon: "LayoutDashboard",
     element: <Dashboard/>,
   },
   {
-    name: "Examples",
-    icon: "Folder",
+    name: "Users",
+    icon: "Users",
     path: "/examples",
     children: [
       {
@@ -28,8 +28,8 @@ const componentsConfig = [
     ],
   },
   {
-    name:"Fire",
-    icon:"LogOut",
+    name:"Modules",
+    icon:"Layers",
     path:"/fire",
 
       children:[
@@ -45,8 +45,8 @@ const componentsConfig = [
     ]
   },
     {
-    name:"Fame",
-    icon:"LogOut",
+    name:"SubModules",
+    icon:"Grid",
     path:"/fame",
 
     children:[
@@ -62,8 +62,8 @@ const componentsConfig = [
     ]
   },
     {
-    name:"Car",
-    icon:"LogOut",
+    name:"Companies",
+    icon:"Building2",
     path:"/car",
 
     children:[
@@ -80,8 +80,8 @@ const componentsConfig = [
   },
    
    {
-    name:"Divo",
-    icon:"LogOut",
+    name:"Departments",
+    icon:"GitBranch",
     path:"/Divo",
 
     children:[
@@ -97,8 +97,8 @@ const componentsConfig = [
     ]
   },
    {
-    name:"Shield",
-    icon:"LogOut",
+    name:"Accounting",
+    icon:"BookOpen",
     path:"/Shield",
 
     children:[
@@ -114,8 +114,8 @@ const componentsConfig = [
     ]
   },
    {
-    name:"Flash",
-    icon:"LogOut",
+    name:"Tax",
+    icon:"Percent",
     path:"/Flash",
 
 
@@ -132,8 +132,8 @@ const componentsConfig = [
     ]
   },
   {
-    name:"Fandom",
-    icon:"LogOut",
+    name:"Suppliers",
+    icon:"Truck",
     path:"/Fandom",
 
     children:[
@@ -149,8 +149,8 @@ const componentsConfig = [
     ]
   },
     {
-    name:"Splash",
-    icon:"LogOut",
+    name:"Supplier Inv... ",
+    icon:"FileText",
     path:"/Splash",
 
     children:[
@@ -166,8 +166,8 @@ const componentsConfig = [
     ]
   },
     {
-    name:"Court",
-    icon:"LogOut",
+    name:"Report",
+    icon:"BarChart3",
     path:"/Court",
 
     children:[
@@ -183,8 +183,8 @@ const componentsConfig = [
     ]
   },
     {
-    name:"Wisdon",
-    icon:"LogOut",
+    name:"Unit Master",
+    icon:"Package",
     path:"/Wisdon",
 
     children:[
@@ -200,8 +200,8 @@ const componentsConfig = [
     ]
   },
     {
-    name:"Criteria",
-    icon:"LogOut",
+    name:"Unit List",
+    icon:"List",
     path:"/Criteria",
 
     children:[
@@ -217,8 +217,8 @@ const componentsConfig = [
     ]
   },
   {
-    name:"Fishy",
-    icon:"LogOut",
+    name:"Product",
+    icon:"ShoppingCart",
     path:"/Fishy",
 
     children:[
@@ -235,8 +235,8 @@ const componentsConfig = [
   },
 
   {
-    name:"Cone",
-    icon:"LogOut",
+    name:"Master Data",
+    icon:"Database",
     path:"/Cone",
 
     children:[
@@ -253,8 +253,8 @@ const componentsConfig = [
   },
 
   {
-    name:"Bat",
-    icon:"LogOut",
+    name:"Bank",
+    icon:"Banknote",
     path:"/Bat",
 
     children:[
@@ -271,8 +271,8 @@ const componentsConfig = [
   },
 
   {
-    name:"Curious",
-    icon:"LogOut",
+    name:"Payment",
+    icon:"Wallet",
     path:"/Curious",
 
     children:[
@@ -284,6 +284,23 @@ const componentsConfig = [
       {
         name:"Create15",
         path: "/Curious/create15"
+      }
+    ]
+  },
+    {
+    name:"Stock Location",
+    icon:"MapPin",
+    path:"/Curi",
+
+    children:[
+      {
+        name:"Update15",
+        path: "/Curi/update16"
+        
+      },
+      {
+        name:"Create15",
+        path: "/Curi/create16"
       }
     ]
   },
