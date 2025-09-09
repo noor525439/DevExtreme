@@ -16,14 +16,14 @@ const componentsConfig = [
     path: "/examples",
     children: [
       {
-        name: "Profile",
-        path: "/Profile",
-        element: <Profile />,
+        name: "User List",
+        path: "/userList",
+  
       },
       {
-        name: "Tasks",
-        path: "/Tasks",
-        element: <Tasks/>,
+        name: "Add User",
+        path: "/addUser",
+      
       },
     ],
   },

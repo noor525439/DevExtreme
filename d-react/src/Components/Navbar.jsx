@@ -7,9 +7,17 @@ import sneat from "../assets/images/sneat.svg";
 import menu from "../assets/images/menu_icon.png";
 
 
+
 const Navbar = () => {
   const [extended, setExtended] = useState(true);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [tabs, setTabs] = useState([]);
+   const handleMenuClick = (menuName) => {
+    if (!tabs.includes(menuName)) {
+      setTabs([...tabs, menuName]);
+    }
+    setActiveTab(menuName);
+  };
 
   const Dropdown = () => (
     <div className="absolute right-4 top-14 mt-1 w-48 bg-white dark:bg-gray-800 shadow-md rounded-md text-xl z-50 border border-gray-200 dark:border-gray-700">

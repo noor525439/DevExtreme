@@ -4,15 +4,32 @@ import { Routes, Route, Link } from "react-router-dom";
 import componentsConfig from "./ComponentsConfig";
 import Modules from "./Modules";
 
-
 const Sidebar = () => {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [search, setSearch] = useState("");
   const [extended, setExtended] = useState(true);
+  const [tabs, setTabs] = useState([]);
+  const [activeTab, setActiveTab] = useState(null);
 
   const renderIcon = (iconName, size = 24) => {
     const Icon = Icons[iconName];
     return Icon ? <Icon size={size} /> : null;
+  };
+
+  const handleMenuClick = (menuName) => {
+    if (!tabs.includes(menuName)) {
+      setTabs([...tabs, menuName]);
+    }
+    setActiveTab(menuName);
+  };
+
+  const handleRemoveTab = (menuName) => {
+    const newTabs = tabs.filter((tab) => tab !== menuName);
+    setTabs(newTabs);
+
+    if (activeTab === menuName) {
+      setActiveTab(newTabs.length > 0 ? newTabs[0] : null);
+    }
   };
 
   const filteredItems = componentsConfig.filter((item) => {
@@ -28,14 +45,13 @@ const Sidebar = () => {
 
   return (
     <div className="flex min-h-screen w-screen">
-      <aside
-        className={`fixed h-screen left-0  bg-indigo-500  transition-all duration-300
-        ${extended ? "w-64" : "w-20"}`}
-      >
       
-       
-
-        <nav className="flex flex-col p-2 pt-7 space-y-2  mb-80 text-white">
+      <aside
+        className={`fixed h-screen left-0 bg-indigo-500 transition-all duration-300 ${
+          extended ? "w-64" : "w-20"
+        }`}
+      >
+        <nav className="flex flex-col p-2 pt-7 space-y-2 mb-80 text-white">
           {filteredItems.length > 0 ? (
             filteredItems.map((item) => (
               <div key={item.path} className="relative">
@@ -49,7 +65,7 @@ const Sidebar = () => {
                           )
                         }
                         aria-expanded={openDropdown === item.path}
-                        className="flex items-center gap-2 p-1 font-semibold rounded w-full text-left hover:bg-blue-950 dark:hover:bg-gray-700"
+                        className="flex items-center gap-2 p-1 font-semibold rounded w-full text-left hover:bg-blue-950"
                       >
                         {renderIcon(item.icon)} {item.name}
                       </button>
@@ -66,13 +82,12 @@ const Sidebar = () => {
                       </div>
                     )}
 
-                  
                     {openDropdown === item.path && (
                       <div
-                        className={`absolute top-0 left-full bg-white dark:bg-gray-900 shadow-lg border rounded-md z-50 transition-all duration-300
-                        ${extended ? "ml-1 w-56" : "ml-2 w-48"}`}
+                        className={`absolute top-0 left-full bg-white text-gray-900 shadow-lg border rounded-md z-50 transition-all duration-300 ${
+                          extended ? "ml-1 w-56" : "ml-2 w-48"
+                        }`}
                       >
-                    
                         <div className="flex flex-col">
                           {item.children
                             .filter((child) =>
@@ -84,7 +99,8 @@ const Sidebar = () => {
                               <Link
                                 key={child.path}
                                 to={child.path}
-                                className="px-6 py-2 hover:bg-blue-950 dark:hover:bg-gray-700 text-sm"
+                                className="px-6 py-2 text-sm hover:bg-gray-200"
+                                onClick={() => handleMenuClick(child.name)}
                               >
                                 {child.name}
                               </Link>
@@ -96,9 +112,10 @@ const Sidebar = () => {
                 ) : (
                   <Link
                     to={item.path}
-                    className={`flex items-center gap-2 font-semibold p-2 rounded hover:bg-blue-950 dark:hover:bg-gray-700 ${
+                    className={`flex items-center gap-2 font-semibold p-2 rounded hover:bg-blue-950 ${
                       extended ? "w-full" : "justify-center"
                     }`}
+                    onClick={() => handleMenuClick(item.name)}
                   >
                     {renderIcon(item.icon, 24)}
                     {extended && item.name}
@@ -111,24 +128,30 @@ const Sidebar = () => {
           )}
         </nav>
 
-    
-        <div className="flex justify-between gap-2 items-center after: px-3">
+        <div className="flex justify-between gap-2 items-center px-3">
           <input
             type="text"
             placeholder="Search..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="p-2 w-full border bg-gray-100 border-gray-300  rounded-md"
+            className="p-2 w-full border bg-gray-100 border-gray-300 rounded-md"
           />
-        
         </div>
       </aside>
 
     
       <main
-        className={`flex-1 bg-gray-100 transition-all duration-300
-        ${extended ? "ml-64" : "ml-20"}`}
-      >  <Modules/>
+        className={`flex-1 bg-gray-100 transition-all duration-300 ${
+          extended ? "ml-64" : "ml-20"
+        }`}
+      >
+        <Modules
+          tabs={tabs}
+          activeTab={activeTab}
+          onTabClick={setActiveTab}
+          onRemoveTab={handleRemoveTab}
+        />
+
         <Routes>
           {componentsConfig.map((item) =>
             item.children ? (
