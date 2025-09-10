@@ -1,27 +1,34 @@
-import React from 'react'
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LogIn from './Components/LogIn';
-import SignUp from './Components/SignUp';
-import Navbar from './Components/Navbar';
-
+import LogIn from "./Components/LogIn";
+import SignUp from "./Components/SignUp";
+import Navbar from "./Components/Navbar";
+import Sidebar from "./Components/Sidebar";
 
 const Layout = () => {
   return (
-    <div>
-    <Navbar/>
-  
+    <div className="flex flex-col min-h-screen">
+      {/* Navbar Top */}
+      <Navbar />
+
+    
     </div>
   );
 };
 
-const App = () => (
-  <Router>
-    <Routes>
-      <Route path="/login" element={<LogIn />} />
-      <Route path="/signup" element={<SignUp />} />
-      <Route path="*" element={<Layout />} />
-    </Routes>
-  </Router>
-);
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        {/* Auth pages */}
+        <Route path="/login" element={<LogIn />} />
+        <Route path="/signup" element={<SignUp />} />
+
+        {/* Main App Layout */}
+        <Route path="/*" element={<Layout />} />
+      </Routes>
+    </Router>
+  );
+};
 
 export default App;

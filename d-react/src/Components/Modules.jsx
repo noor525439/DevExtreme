@@ -8,7 +8,7 @@ const allModules = Array.from({ length: 50 }, (_, i) => ({
   createdBy: "zubairkhan",
 }));
 
-const Modules = ({ tabs, activeTab, onTabClick, onRemoveTab }) => {
+const Modules = ({ tabs = [], activeTab, onTabClick, onRemoveTab }) => {
   const [modules, setModules] = useState(allModules.slice(0, 10));
   const [loading, setLoading] = useState(false);
   const [filterInput, setFilterInput] = useState({});
@@ -49,9 +49,9 @@ const Modules = ({ tabs, activeTab, onTabClick, onRemoveTab }) => {
   );
 
   return (
-    <div className="flex-1 p-6">
+    <div className="flex-1 p-6 bg-gray-50">
       
-      <div className="bg-white text-xl h-[70px] m-2 rounded-md shadow p-4 flex gap-2 items-center">
+      <div className={`text-xl h-[70px] m-2 rounded-md shadow-md p-4 flex gap-2 items-center ${tabs.length === 0 ? "hidden" : "bg-white"}`}>
         {tabs.length === 0 ? (
           <p className="text-gray-400 w-full text-center"></p>
         ) : (
@@ -62,6 +62,8 @@ const Modules = ({ tabs, activeTab, onTabClick, onRemoveTab }) => {
                 activeTab === tab ? "bg-gray-200 text-black" : "bg-gray-200 text-gray-800"
               }`}
               onClick={() => onTabClick(tab)}
+              
+              
             >
               <span>{tab}</span>
               <X

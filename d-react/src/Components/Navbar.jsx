@@ -59,7 +59,7 @@ const Navbar = () => {
       
       <div className="flex flex-1 pt-16">
         
-        <Sidebar extended={extended} />
+        <Sidebar extended={extended}  />
       </div>
     </div>
   );

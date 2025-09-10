@@ -1,14 +1,12 @@
-
 import Dashboard from "./Dashboard";
-import Profile from "./Profile";
-import Tasks from "./Tasks";
+import Modules from "./Modules";
 
 const componentsConfig = [
   {
     name: "Dashboard",
     path: "/",
     icon: "LayoutDashboard",
-    element: <Dashboard/>,
+    element: <Dashboard />,
   },
   {
     name: "Users",
@@ -17,295 +15,277 @@ const componentsConfig = [
     children: [
       {
         name: "User List",
-        path: "/userList",
-         
+        path: "/userList",   // fixed ✅
+        element: <Modules />,
       },
       {
         name: "Add User",
-        path: "/addUser",
-      
+        path: "/addUser",   // fixed ✅
+        element: <Modules />,
       },
     ],
   },
   {
-    name:"Modules",
-    icon:"Layers",
-    path:"/fire",
-
-      children:[
-      {
-        name:"Update1",
-        path: "/fire/update1"
-        
-      },
-      {
-        name:"Create1",
-        path: "/fire/create1"
-      }
-    ]
-  },
-    {
-    name:"SubModules",
-    icon:"Grid",
-    path:"/fame",
-
-    children:[
-      {
-        name:"Update2",
-        path: "/fame/update2"
-        
-      },
-      {
-        name:"Create2",
-        path: "/fame/create2"
-      }
-    ]
-  },
-    {
-    name:"Companies",
-    icon:"Building2",
-    path:"/car",
-
-    children:[
-      {
-        name:"Update3",
-        path: "/car/update3"
-        
-      },
-      {
-        name:"Create3",
-        path: "/car/create3"
-      }
-    ]
-  },
-   
-   {
-    name:"Departments",
-    icon:"GitBranch",
-    path:"/Divo",
-
-    children:[
-      {
-        name:"Update4",
-        path: "/Divo/update4"
-        
-      },
-      {
-        name:"Create4",
-        path: "/Divo/create4"
-      }
-    ]
-  },
-   {
-    name:"Accounting",
-    icon:"BookOpen",
-    path:"/Shield",
-
-    children:[
-      {
-        name:"Update5",
-        path: "/Shield/update5"
-        
-      },
-      {
-        name:"Create5",
-        path: "/Shield/Create5"
-      }
-    ]
-  },
-   {
-    name:"Tax",
-    icon:"Percent",
-    path:"/Flash",
-
-
-    children:[
-      {
-        name:"update6",
-        path: "/Flash/update6"
-        
-      },
-      {
-        name:"Create6",
-        path: "/Flash/create6"
-      }
-    ]
+    name: "Modules",
+    icon: "Layers",
+    path: "/Modules",   // fixed lowercase for consistency
+    element: <Modules />,
   },
   {
-    name:"Suppliers",
-    icon:"Truck",
-    path:"/Fandom",
-
-    children:[
+    name: "SubModules",
+    icon: "Grid",
+    path: "/fame",
+    children: [
       {
-        name:"Update7",
-        path: "/Fandom/update7"
-        
+        name: "Update2",
+        path: "/fame/update2",
+        element: <Modules />,
       },
       {
-        name:"Create7",
-        path: "/Fandom/create7"
-      }
-    ]
-  },
-    {
-    name:"Supplier Inv... ",
-    icon:"FileText",
-    path:"/Splash",
-
-    children:[
-      {
-        name:"Update8",
-        path: "/Splash/update8"
-        
+        name: "Create2",
+        path: "/fame/create2",
+        element: <Modules />,
       },
-      {
-        name:"Create8",
-        path: "/Splash/create8"
-      }
-    ]
-  },
-    {
-    name:"Report",
-    icon:"BarChart3",
-    path:"/Court",
-
-    children:[
-      {
-        name:"Update9",
-        path: "/Court/update9"
-        
-      },
-      {
-        name:"Create9",
-        path: "/Court/create9"
-      }
-    ]
-  },
-    {
-    name:"Unit Master",
-    icon:"Package",
-    path:"/Wisdon",
-
-    children:[
-      {
-        name:"Update10",
-        path: "/Wisdon/update10"
-        
-      },
-      {
-        name:"Create10",
-        path: "/Wisdon/create10"
-      }
-    ]
-  },
-    {
-    name:"Unit List",
-    icon:"List",
-    path:"/Criteria",
-
-    children:[
-      {
-        name:"Update11",
-        path: "/Criteria/update11"
-        
-      },
-      {
-        name:"Create11",
-        path: "/Criteria/create11"
-      }
-    ]
+    ],
   },
   {
-    name:"Product",
-    icon:"ShoppingCart",
-    path:"/Fishy",
-
-    children:[
+    name: "Companies",
+    icon: "Building2",
+    path: "/car",
+    children: [
       {
-        name:"Update12",
-        path: "/Fishy/update12"
-        
+        name: "Update3",
+        path: "/car/update3",
+        element: <Modules />,
       },
       {
-        name:"Create12",
-        path: "/Fishy/create12"
-      }
-    ]
+        name: "Create3",
+        path: "/car/create3",
+        element: <Modules />,
+      },
+    ],
   },
-
   {
-    name:"Master Data",
-    icon:"Database",
-    path:"/Cone",
-
-    children:[
+    name: "Departments",
+    icon: "GitBranch",
+    path: "/divo",
+    children: [
       {
-        name:"Update13",
-        path: "/Cone/update13"
-        
+        name: "Update4",
+        path: "/divo/update4",
+        element: <Modules />,
       },
       {
-        name:"Create13",
-        path: "/Cone/create13"
-      }
-    ]
+        name: "Create4",
+        path: "/divo/create4",
+        element: <Modules />,
+      },
+    ],
   },
-
   {
-    name:"Bank",
-    icon:"Banknote",
-    path:"/Bat",
-
-    children:[
+    name: "Accounting",
+    icon: "BookOpen",
+    path: "/shield",
+    children: [
       {
-        name:"Update14",
-        path: "/Criteria/update14"
-        
+        name: "Update5",
+        path: "/shield/update5",
+        element: <Modules />,
       },
       {
-        name:"Create14",
-        path: "/Bat/create14"
-      }
-    ]
+        name: "Create5",
+        path: "/shield/create5",
+        element: <Modules />,
+      },
+    ],
   },
-
   {
-    name:"Payment",
-    icon:"Wallet",
-    path:"/Curious",
-
-    children:[
+    name: "Tax",
+    icon: "Percent",
+    path: "/flash",
+    children: [
       {
-        name:"Update15",
-        path: "/Curious/update15"
-        
+        name: "Update6",
+        path: "/flash/update6",
+        element: <Modules />,
       },
       {
-        name:"Create15",
-        path: "/Curious/create15"
-      }
-    ]
+        name: "Create6",
+        path: "/flash/create6",
+        element: <Modules />,
+      },
+    ],
   },
-    {
-    name:"Stock Location",
-    icon:"MapPin",
-    path:"/Curi",
-
-    children:[
+  {
+    name: "Suppliers",
+    icon: "Truck",
+    path: "/fandom",
+    children: [
       {
-        name:"Update15",
-        path: "/Curi/update16"
-        
+        name: "Update7",
+        path: "/fandom/update7",
+        element: <Modules />,
       },
       {
-        name:"Create15",
-        path: "/Curi/create16"
-      }
-    ]
+        name: "Create7",
+        path: "/fandom/create7",
+        element: <Modules />,
+      },
+    ],
   },
-
-
-  
+  {
+    name: "Supplier Inv... ",
+    icon: "FileText",
+    path: "/splash",
+    children: [
+      {
+        name: "Update8",
+        path: "/splash/update8",
+        element: <Modules />,
+      },
+      {
+        name: "Create8",
+        path: "/splash/create8",
+        element: <Modules />,
+      },
+    ],
+  },
+  {
+    name: "Report",
+    icon: "BarChart3",
+    path: "/court",
+    children: [
+      {
+        name: "Update9",
+        path: "/court/update9",
+        element: <Modules />,
+      },
+      {
+        name: "Create9",
+        path: "/court/create9",
+        element: <Modules />,
+      },
+    ],
+  },
+  {
+    name: "Unit Master",
+    icon: "Package",
+    path: "/wisdon",
+    children: [
+      {
+        name: "Update10",
+        path: "/wisdon/update10",
+        element: <Modules />,
+      },
+      {
+        name: "Create10",
+        path: "/wisdon/create10",
+        element: <Modules />,
+      },
+    ],
+  },
+  {
+    name: "Unit List",
+    icon: "List",
+    path: "/criteria",
+    children: [
+      {
+        name: "Update11",
+        path: "/criteria/update11",
+        element: <Modules />,
+      },
+      {
+        name: "Create11",
+        path: "/criteria/create11",
+        element: <Modules />,
+      },
+    ],
+  },
+  {
+    name: "Product",
+    icon: "ShoppingCart",
+    path: "/fishy",
+    children: [
+      {
+        name: "Update12",
+        path: "/fishy/update12",
+        element: <Modules />,
+      },
+      {
+        name: "Create12",
+        path: "/fishy/create12",
+        element: <Modules />,
+      },
+    ],
+  },
+  {
+    name: "Master Data",
+    icon: "Database",
+    path: "/cone",
+    children: [
+      {
+        name: "Update13",
+        path: "/cone/update13",
+        element: <Modules />,
+      },
+      {
+        name: "Create13",
+        path: "/cone/create13",
+        element: <Modules />,
+      },
+    ],
+  },
+  {
+    name: "Bank",
+    icon: "Banknote",
+    path: "/bat",
+    children: [
+      {
+        name: "Update14",
+        path: "/bat/update14",   // fixed ✅
+        element: <Modules />,
+      },
+      {
+        name: "Create14",
+        path: "/bat/create14",
+        element: <Modules />,
+      },
+    ],
+  },
+  {
+    name: "Payment",
+    icon: "Wallet",
+    path: "/curious",
+    children: [
+      {
+        name: "Update15",
+        path: "/curious/update15",
+        element: <Modules />,
+      },
+      {
+        name: "Create15",
+        path: "/curious/create15",
+        element: <Modules />,
+      },
+    ],
+  },
+  {
+    name: "Stock Location",
+    icon: "MapPin",
+    path: "/curi",
+    children: [
+      {
+        name: "Update16",
+        path: "/curi/update16",   // fixed ✅
+        element: <Modules />,
+      },
+      {
+        name: "Create16",
+        path: "/curi/create16",   // fixed ✅
+        element: <Modules />,
+      },
+    ],
+  },
 ];
+
 export default componentsConfig;
