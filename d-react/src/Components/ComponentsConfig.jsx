@@ -18,7 +18,7 @@ const componentsConfig = [
       {
         name: "User List",
         path: "/userList",
-  
+         
       },
       {
         name: "Add User",

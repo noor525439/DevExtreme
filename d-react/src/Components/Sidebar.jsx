@@ -4,10 +4,9 @@ import { Routes, Route, Link } from "react-router-dom";
 import componentsConfig from "./ComponentsConfig";
 import Modules from "./Modules";
 
-const Sidebar = () => {
+const Sidebar = ({extended}) => {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [search, setSearch] = useState("");
-  const [extended, setExtended] = useState(true);
   const [tabs, setTabs] = useState([]);
   const [activeTab, setActiveTab] = useState(null);
 
