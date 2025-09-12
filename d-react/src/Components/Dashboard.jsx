@@ -1,12 +1,17 @@
 import React from "react";
 import { X } from "lucide-react";
+import Section from "./Section";
 
 const Dashboard = ({ tabs = [], activeTab = null, onTabClick, onRemoveTab }) => {
   return (
     <div className="flex-1 p-6">
-
-      <div className={`text-xl h-[70px] m-2 rounded-md shadow-md p-4 flex gap-2 items-center ${tabs.length === 0 ? "hidden" : "bg-white"}`}>
-        {tabs.length > 0 && 
+      {/* Tabs System */}
+      <div
+        className={`text-xl h-[70px] m-2 rounded-md shadow-md p-4 flex gap-2 items-center ${
+          tabs.length === 0 ? "hidden" : "bg-white"
+        }`}
+      >
+        {tabs.length > 0 &&
           tabs.map((tab) => (
             <div
               key={tab.name}
@@ -26,18 +31,16 @@ const Dashboard = ({ tabs = [], activeTab = null, onTabClick, onRemoveTab }) => 
                 }}
               />
             </div>
-          ))
-        }
+          ))}
       </div>
 
-      <div className="bg-white m-2 rounded-md shadow ">
-        {tabs.map(
-          (tab) =>
-            activeTab === tab.name && (
-              <div key={tab.name}>{tab.element}</div>
-            )
-        )}
+    
+      <div className="bg-white m-2 rounded-md shadow">
+        {tabs.find((tab) => tab.name === activeTab)?.element}
       </div>
+
+    
+      <Section/>
     </div>
   );
 };

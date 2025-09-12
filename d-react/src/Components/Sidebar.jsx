@@ -18,13 +18,13 @@ const Sidebar = ({ extended }) => {
   };
 
   const handleMenuClick = (menuName, path, element) => {
-    // Check if tab already open
+    
     const exists = tabs.find((t) => t.name === menuName);
     if (!exists) {
       setTabs([...tabs, { name: menuName, element }]);
     }
     setActiveTab(menuName);
-    navigate("/dashboard"); // always go dashboard
+    navigate("/dashboard"); 
   };
 
   const handleRemoveTab = (menuName) => {
@@ -50,7 +50,7 @@ const Sidebar = ({ extended }) => {
 
   return (
     <div className="flex min-h-screen w-screen">
-      {/* Sidebar */}
+  
       <aside
         className={`fixed h-screen left-0 bg-indigo-500 transition-all duration-300 ${
           extended ? "w-64" : "w-20"
@@ -124,7 +124,7 @@ const Sidebar = ({ extended }) => {
           ))}
         </nav>
 
-        {/* Search */}
+      
         <div className="flex justify-between gap-2 items-center px-3">
           <input
             type="text"
@@ -136,7 +136,7 @@ const Sidebar = ({ extended }) => {
         </div>
       </aside>
 
-      {/* Main Content */}
+    
       <main
         className={`flex-1 bg-gray-100 transition-all duration-300 ${
           extended ? "ml-64" : "ml-20"

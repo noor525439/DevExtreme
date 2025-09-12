@@ -15,12 +15,12 @@ const componentsConfig = [
     children: [
       {
         name: "User List",
-        path: "/userList",   // fixed ✅
+        path: "/userList",   
         element: <Modules />,
       },
       {
         name: "Add User",
-        path: "/addUser",   // fixed ✅
+        path: "/addUser",   
         element: <Modules />,
       },
     ],
@@ -28,7 +28,7 @@ const componentsConfig = [
   {
     name: "Modules",
     icon: "Layers",
-    path: "/Modules",   // fixed lowercase for consistency
+    path: "/Modules",   
     element: <Modules />,
   },
   {
@@ -242,7 +242,7 @@ const componentsConfig = [
     children: [
       {
         name: "Update14",
-        path: "/bat/update14",   // fixed ✅
+        path: "/bat/update14",   
         element: <Modules />,
       },
       {
@@ -276,12 +276,12 @@ const componentsConfig = [
     children: [
       {
         name: "Update16",
-        path: "/curi/update16",   // fixed ✅
+        path: "/curi/update16",   
         element: <Modules />,
       },
       {
         name: "Create16",
-        path: "/curi/create16",   // fixed ✅
+        path: "/curi/create16",   
         element: <Modules />,
       },
     ],

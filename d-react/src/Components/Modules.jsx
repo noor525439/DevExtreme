@@ -53,7 +53,7 @@ const Modules = ({ tabs = [], activeTab, onTabClick, onRemoveTab }) => {
       
       <div className={`text-xl h-[70px] m-2 rounded-md shadow-md p-4 flex gap-2 items-center ${tabs.length === 0 ? "hidden" : "bg-white"}`}>
         {tabs.length === 0 ? (
-          <p className="text-gray-400 w-full text-center"></p>
+          <p className="text-gray-50 w-full text-center"></p>
         ) : (
           tabs.map(tab => (
             <div
@@ -78,7 +78,9 @@ const Modules = ({ tabs = [], activeTab, onTabClick, onRemoveTab }) => {
         )}
       </div>
 
-      <h1 className="text-2xl font-bold m-3">Module list</h1>
+      {activeTab !== "Modules" && (
+  <h1 className="text-2xl font-bold m-3">Module list</h1>
+)}
 
 
       <div className="bg-white pb-4 p-2 rounded-lg shadow mb-4">

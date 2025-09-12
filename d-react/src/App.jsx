@@ -8,7 +8,7 @@ import Sidebar from "./Components/Sidebar";
 const Layout = () => {
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Navbar Top */}
+    
       <Navbar />
 
     
@@ -20,11 +20,11 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        {/* Auth pages */}
+
         <Route path="/login" element={<LogIn />} />
         <Route path="/signup" element={<SignUp />} />
 
-        {/* Main App Layout */}
+
         <Route path="/*" element={<Layout />} />
       </Routes>
     </Router>
