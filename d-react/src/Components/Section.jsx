@@ -2,17 +2,41 @@ import { Calendar, ChevronDown, DollarSign, Filter, Layers, Wallet } from 'lucid
 import React, { useState } from 'react'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import {
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+
+const salesData = [
+  { date: "2025-06-01", value1:  30000, value2: 35000, value3: 0 },
+  { date: "2025-06-02", value1:  70000, value2: 90000, value3: 0 },
+  { date: "2025-06-03", value1: 60000, value2: 50000, value3: 0 },
+  { date: "2025-06-04", value1: 30000, value2: 28000, value3: 0 },
+  { date: "2025-06-05", value1: 70000, value2: 65000, value3: 0 },
+  { date: "2025-06-06", value1: 75000, value2: 72000, value3: 2000 },
+  { date: "2025-06-07", value1: 35000, value2: 28000, value3: 0 },
+  { date: "2025-06-08", value1: 50000, value2: 70000, value3: 0 },
+  { date: "2025-06-09", value1: 48000, value2: 74000, value3: 0 },
+  { date: "2025-06-10", value1: 25000, value2: 22000, value3: 1000 },
+];
 
 const Section = () => {
-const [open, setOpen] = useState(false);
-const [startDate, setStartDate] = useState(null);
-const [selectedOption, setSelectedOption] = useState("Day");
-const [selectedOption1, setSelectedOption1] = useState("Category Name");
-const [selectedOption2, setSelectedOption2] = useState("Revenue Center Name");
-const [selectedOption3, setSelectedOption3] = useState("Sales Day");
-const [selectedOption4, setSelectedOption4] = useState("Item Name");
+  const [open, setOpen] = useState(false);
+  const [open1, setOpen1] = useState(false);
+  const [startDate, setStartDate] = useState(null);
+  const [selectedOption, setSelectedOption] = useState("Day");
+  const [selectedOption1, setSelectedOption1] = useState("Category Name");
+  const [selectedOption2, setSelectedOption2] = useState("Revenue Center Name");
+  const [selectedOption3, setSelectedOption3] = useState("Sales Day");
+  const [selectedOption4, setSelectedOption4] = useState("Item Name");
 
-const handleChange = (e) => {
+  const handleChange = (e) => {
     setSelectedOption(e.target.value);
   };
 
@@ -20,7 +44,7 @@ const handleChange = (e) => {
     setSelectedOption1(e.target.value);
   };
 
-    const handleChange2 = (e) => {
+  const handleChange2 = (e) => {
     setSelectedOption2(e.target.value);
   };
 
@@ -28,75 +52,104 @@ const handleChange = (e) => {
     setSelectedOption3(e.target.value);
   };
 
-    const handleChange4 = (e) => {
+  const handleChange4 = (e) => {
     setSelectedOption4(e.target.value);
   };
 
-
-
-  
-
-const dropDown = () => {
-return  (   <div className='w-[780px] bg-white mt-1 p-3 absolute z-50'>
+  const dropDown = () => {
+    return (   
+      <div className='w-[780px] bg-white mt-1 p-3 absolute z-50'>
         <ul>
-            <li className='text-gray-400 text-left text-2xl rounded'>No options available, Please write and Search
-            </li>
+          <li className='text-gray-400 text-left text-2xl rounded'>
+            No options available, Please write and Search
+          </li>
         </ul>
-    </div>)
-}
+      </div>
+    );
+  };
+
   return (
     <div>
       <div className="my-4 p-4 bg-white rounded-md shadow">
-      <div>
-          <h1 className="flex justify-center items-center text-2xl font-bold text-gray-700">Daily Sales Dashboard</h1>
-      </div>
-  <div className='flex justify-between items-center '>
-     <div className='relative'>
-           <label className="block text-gray-800 font-semibold text-2xl" >Company</label>
-           <input     
-         type="text"
+        <div>
+          <h1 className="flex justify-center items-center text-2xl font-bold text-gray-700">
+            Daily Sales Dashboard
+          </h1>
+        </div>
         
-         className=" w-[775px] mx-2 border border-gray-300 p-1  rounded-md text-gray-950 mt-1  text-2xl"
-         placeholder=" VKD Hospitailty LLC" />
-
-         <ChevronDown onClick={()=>setOpen(!open)}  className="absolute right-2 top-2/3 transform -translate-y-1/2 text-gray-500 w-8 h-8 " />
+        <div className='flex justify-between items-center '>
+          <div className='relative'>
+            <label className="block text-gray-800 font-semibold text-2xl">Company</label>
+            <input     
+              type="text"
+              className="w-[775px] mx-2 border border-gray-300 p-1 rounded-md text-gray-950 mt-1 text-2xl"
+              placeholder="VKD Hospitailty LLC" 
+            />
+            <ChevronDown 
+              onClick={() => setOpen(!open)}  
+              className="absolute right-2 top-2/3 transform -translate-y-1/2 text-gray-500 w-8 h-8 cursor-pointer" 
+            />
             {open && dropDown()}
-          
-        </div>
+          </div>
 
-        <div className='relative'>
-          <label className="block text-gray-800 font-semibold text-2xl" >From date</label>
-          
-          
-      <DatePicker
-        selected={startDate}
-        onChange={(date) => setStartDate(date)}
-        placeholderText="     09/09/2025"
-        className="w-[775px] border border-gray-300 p-2 rounded-md text-gray-950 px-10 mt-1 text-2xl"    
-      />
-      
-         <Calendar className="absolute left-2 top-2/3 transform -translate-y-1/2 text-gray-500 w-6 h-6 pointer-events-none" />
-        </div>
+          <div className='relative'>
+            <label className="block text-gray-800 font-semibold text-2xl">From date</label>
+            <DatePicker
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+              placeholderText="09/09/2025"
+              className="w-[775px] border border-gray-300 p-2 rounded-md text-gray-950 px-10 mt-1 text-2xl"    
+            />
+            <Calendar className="absolute left-2 top-2/3 transform -translate-y-1/2 text-gray-500 w-6 h-6 pointer-events-none" />
+          </div>
 
-        <div className='relative '>
-          <label className="block text-gray-800 font-semibold text-2xl" >To date</label>
-          <DatePicker
-        selected={startDate}
-        onChange={(date) => setStartDate(date)}
-        placeholderText="     09/09/2025"
-        className="w-[775px] border border-gray-300 p-1 rounded text-gray-950 mt-1 px-10 text-2xl"
-      />
-          <Calendar
-      className="absolute left-2 top-2/3 transform -translate-y-1/2 text-gray-500 w-6 h-6 pointer-events-none"
-    /> 
+          <div className='relative '>
+            <label className="block text-gray-800 font-semibold text-2xl">To date</label>
+            <DatePicker
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+              placeholderText="09/09/2025"
+              className="w-[775px] border border-gray-300 p-1 rounded text-gray-950 mt-1 px-10 text-2xl"
+            />
+            <Calendar className="absolute left-2 top-2/3 transform -translate-y-1/2 text-gray-500 w-6 h-6 pointer-events-none" />
+          </div>
         </div>
+        
+        <button className='left-1 bg-indigo-500 text-white mb-8 mt-2 w-36 rounded-md text-2xl px-2 py-1'>
+          Submit
+        </button>
+        
+        <div className='relative text-2xl p-2 mx-4 border border-gray-50 shadow-lg font-semibold'>
+          <div
+            className="flex items-center justify-between p-3 "
+            onClick={() => setOpen1(!open1)}
+          >
+            <span className="font-semibold text-gray-900">Daily Sales Chart</span>
+            <ChevronDown
+              className={`w-6 h-6 text-gray-900 transform transition-transform duration-300 ${
+                open1 ? "rotate-180" : "" 
+              }`}
+            />
+          </div>
 
         
-  </div>
-    <button className='left-1 bg-indigo-500 text-white mb-8 mt-2  w-36 rounded-md text-2xl px-2 py-1'>Submit</button>
-    <div className='bg-white h-12 w-full border-b border-b-gray-300 shadow-lg'
-     ><div className='text-2xl mx-4 font-semibold'>Daily Sales Chart</div></div>
-
+          {open1 && ( 
+            <div className="mt-4 bg-gray-50 p-10 px-4 rounded-lg shadow-lg">
+              <ResponsiveContainer width="100%" height={300}>
+                <LineChart data={salesData}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#555" />
+                  <XAxis dataKey="date" stroke="black" />
+                  <YAxis stroke="black" />
+                  <Tooltip />
+                  <Legend />
+                  <Line type="monotone" dataKey="value1" stroke="#00ff00" />
+                  <Line type="monotone" dataKey="value2" stroke="#ff00ff" />
+                  <Line type="monotone" dataKey="value3" stroke="#3399ff" />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          )}
+        </div>
 
      <div >
         <div className='font-bold text-2xl text-gray-700 mt-4'>Daily Sales</div>
@@ -502,18 +555,16 @@ return  (   <div className='w-[780px] bg-white mt-1 p-3 absolute z-50'>
         
       </div>
       <div className='w-full  border-b border-b-gray-300 shadow-lg h-14 bg-white text-gray-800 text-xl font-bold rounded-md flex justify-start items-center  px-32 my-3'>Total</div>    
-                
+              
       </div>
 
       <footer>
         <div className='text-center text-2xl text-gray-500'>
-           &copy;2025, made with ❤️ by ZAM
+          &copy;2025, made with ❤️ by ZAM
         </div>
       </footer>
-     
-      
     </div>
-  )
-}
+  );
+};
 
-export default Section
+export default Section;
