@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as Icons from "lucide-react";
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import componentsConfig from "./ComponentsConfig";
 import Dashboard from "./Dashboard";
 
 const Sidebar = ({ extended }) => {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [search, setSearch] = useState("");
-  const [tabs, setTabs] = useState([]);
-  const [activeTab, setActiveTab] = useState(null);
+  const [tabs, setTabs] = useState([{ name: "Dashboard", }]);
+  const [activeTab, setActiveTab] = useState("Dashboard");
 
   const navigate = useNavigate();
 
@@ -18,6 +18,7 @@ const Sidebar = ({ extended }) => {
   };
 
   const handleMenuClick = (menuName, path, element) => {
+    if (menuName === "Dashboard") return; // Dashboard ko dobara add mat karo
     
     const exists = tabs.find((t) => t.name === menuName);
     if (!exists) {
@@ -27,11 +28,14 @@ const Sidebar = ({ extended }) => {
     navigate("/dashboard"); 
   };
 
-  const handleRemoveTab = (menuName) => {
+  const handleRemoveTab = (menuName, e) => {
+    if (e) e.stopPropagation();
+    if (menuName === "Dashboard") return;
+    
     const newTabs = tabs.filter((tab) => tab.name !== menuName);
     setTabs(newTabs);
     if (activeTab === menuName) {
-      setActiveTab(newTabs[0]?.name || null);
+      setActiveTab("Dashboard"); 
     }
   };
 
@@ -50,7 +54,7 @@ const Sidebar = ({ extended }) => {
 
   return (
     <div className="flex min-h-screen w-screen">
-  
+    
       <aside
         className={`fixed h-screen left-0 bg-indigo-500 transition-all duration-300 ${
           extended ? "w-64" : "w-20"
@@ -136,7 +140,7 @@ const Sidebar = ({ extended }) => {
         </div>
       </aside>
 
-    
+
       <main
         className={`flex-1 bg-gray-100 transition-all duration-300 ${
           extended ? "ml-64" : "ml-20"
@@ -155,6 +159,16 @@ const Sidebar = ({ extended }) => {
             }
           />
         </Routes>
+        
+      
+        {!window.location.pathname.includes('/dashboard') && (
+          <Dashboard
+            tabs={tabs}
+            activeTab={activeTab}
+            onTabClick={setActiveTab}
+            onRemoveTab={handleRemoveTab}
+          />
+        )}
       </main>
     </div>
   );
