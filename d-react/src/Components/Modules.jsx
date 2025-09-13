@@ -51,7 +51,7 @@ const Modules = ({ tabs = [], activeTab, onTabClick, onRemoveTab }) => {
   return (
     <div className="flex-1 p-6 bg-gray-50">
       
-      <div className={`text-xl h-[70px] m-2 rounded-md shadow-md p-4 flex gap-2 items-center ${tabs.length === 0 ? "hidden" : "bg-white"}`}>
+      <div className={`fixed text-xl h-[70px] rounded-md shadow-md p-4 flex gap-2 items-center ${tabs.length === 0 ? "hidden" : "bg-white"}`}>
         {tabs.length === 0 ? (
           <p className="text-gray-50 w-full text-center"></p>
         ) : (
@@ -79,7 +79,7 @@ const Modules = ({ tabs = [], activeTab, onTabClick, onRemoveTab }) => {
       </div>
 
       {activeTab !== "Modules" && (
-  <h1 className="text-2xl font-bold m-3">Module list</h1>
+  <h1 className="text-2xl font-bold mt-16">Module list</h1>
 )}
 
 
@@ -172,69 +172,74 @@ const Modules = ({ tabs = [], activeTab, onTabClick, onRemoveTab }) => {
         className="bg-white w-full rounded-lg shadow overflow-auto h-[430px]"
         onScroll={handleScroll}
       >
-        <table className="w-full text-left border border-gray-300 border-collapse">
-          <thead>
-            <tr className="bg-indigo-500 text-white">
-              <th className="p-2 border border-gray-300 w-52">
-                <div className="flex justify-between items-center">
-                  <span>Module Name</span>
-                  <Search className="w-4 h-4 cursor-pointer" />
-                </div>
-              </th>
-              <th className="p-2 border border-gray-300 w-52">
-                <div className="flex justify-between items-center">
-                  <span>Text</span>
-                  <Search className="w-4 h-4 cursor-pointer" />
-                </div>
-              </th>
-              <th className="p-2 border border-gray-300 w-52">
-                <div className="flex justify-between items-center">
-                  <span>Created By</span>
-                  <Search className="w-4 h-4 cursor-pointer" />
-                </div>
-              </th>
-              <th className='p-2 border border-gray-300 w-1/2'></th>
-            </tr>
-          </thead>
+        <div className="max-h-[1500px]  border border-gray-300">
+  <table className="w-full text-left border-collapse">
+    <thead>
+      <tr className="bg-indigo-500 text-white">
+        <th className="p-2 border border-gray-300 w-44 sticky top-0 bg-indigo-500 z-10">
+          <div className="flex justify-between items-center">
+            <span>Module Name</span>
+            <Search className="w-4 h-4 cursor-pointer" />
+          </div>
+        </th>
+        <th className="p-2 border border-gray-300 w-44 sticky top-0 bg-indigo-500 z-10">
+          <div className="flex justify-between items-center">
+            <span>Text</span>
+            <Search className="w-4 h-4 cursor-pointer" />
+          </div>
+        </th>
+        <th className="p-2 border border-gray-300 w-44 sticky top-0 bg-indigo-500 z-10">
+          <div className="flex justify-between items-center">
+            <span>Created By</span>
+            <Search className="w-4 h-4 cursor-pointer" />
+          </div>
+        </th>
+        <th className="p-2 border border-gray-300 w-[1500px] sticky top-0 bg-indigo-500 z-10"></th>
+      </tr>
+    </thead>
 
-          <tbody>
-            {filteredModules.length === 0 && !loading && (
-              <tr>
-                <td colSpan="3" className="p-4 text-center text-gray-400">
-                  No results found
-                </td>
-              </tr>
-            )}
+    <tbody>
+      {filteredModules.length === 0 && !loading && (
+        <tr>
+          <td colSpan="4" className="p-4 text-center text-gray-400">
+            No results found
+          </td>
+        </tr>
+      )}
 
-            {filteredModules.map((m, index) => (
-              <tr
-                key={m.id}
-                className={`${index % 2 === 0 ? "bg-white" : "bg-gray-100"} hover:bg-gray-50 transition`}
-              >
-                <td className="p-2 border border-gray-300">{m.name}</td>
-                <td className="p-2 border border-gray-300">{m.text}</td>
-                <td className="p-2 border border-gray-300">{m.createdBy}</td>
-                <td className='p-2 border border-gray-300'></td>
-              </tr>
-            ))}
+      {filteredModules.map((m, index) => (
+        <tr
+          key={m.id}
+          className={`${
+            index % 2 === 0 ? "bg-white" : "bg-gray-100"
+          } hover:bg-gray-50 transition`}
+        >
+          <td className="p-2 border border-gray-300">{m.name}</td>
+          <td className="p-2 border border-gray-300">{m.text}</td>
+          <td className="p-2 border border-gray-300">{m.createdBy}</td>
+          <td className="p-2 border border-gray-300"></td>
+        </tr>
+      ))}
 
-            {loading && (
-              <tr>
-                <td colSpan="3" className="p-4 text-center">
-                  <div className="w-6 h-6 mx-auto border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
-                </td>
-              </tr>
-            )}
+      {loading && (
+        <tr>
+          <td colSpan="4" className="p-4 text-center">
+            <div className="w-6 h-6 mx-auto border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+          </td>
+        </tr>
+      )}
 
-            {!loading && modules.length >= allModules.length && filteredModules.length > 0 && (
-              <tr>
-                <td colSpan="4" className="p-4 text-center text-gray-400">
-                  No more tasks
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+      {!loading && modules.length >= allModules.length && filteredModules.length > 0 && (
+        <tr>
+          <td colSpan="4" className="p-4 text-center text-gray-400">
+            No more tasks
+          </td>
+        </tr>
+      )}
+    </tbody>
+  </table>
+</div>
+
       </div>
     </div>
   );

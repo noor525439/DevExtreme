@@ -18,7 +18,7 @@ const Sidebar = ({ extended }) => {
   };
 
   const handleMenuClick = (menuName, path, element) => {
-    if (menuName === "Dashboard") return; // Dashboard ko dobara add mat karo
+    if (menuName === "Dashboard") return; 
     
     const exists = tabs.find((t) => t.name === menuName);
     if (!exists) {
