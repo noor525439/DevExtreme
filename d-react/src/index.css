@@ -2,17 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Datepicker internal cells styling using Tailwind classes */
-.react-datepicker__day,
-.react-datepicker__day-name {
-  @apply w-14 h-10 text-xl; /* width, height, text size */
-  line-height: 8rem; /* vertical center */
-}
-
-.react-datepicker__header {
-  @apply text-2xl; /* month/year heading */
-}
-
-.react-datepicker__current-month {
-  @apply text-lg font-semibold;
-}

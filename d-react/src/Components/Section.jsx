@@ -70,9 +70,9 @@ const Section = () => {
 
   return (
     <div>
-      <div className="my-4 p-4 bg-white w-[350px] md:w-full rounded-md shadow">
+      <div className="my-4 p-4 bg-white w-[450px] md:w-full rounded-md shadow">
         <div >
-          <h1 className="flex justify-start text-xl md:justify-center text-left md:items-center font-bold text-gray-700">
+          <h1 className="flex justify-start text-xl md:justify-center md:text-2xl text-left md:items-center font-bold text-gray-700">
             Daily Sales Dashboard
           </h1>
         </div>
@@ -82,7 +82,7 @@ const Section = () => {
             <label className="block text-gray-800 font-semibold text-lg md:text-2xl">Company</label>
             <input
               type="text"
-              className=" w-[280px] md:w-[775px] mx-2 border border-gray-300 p-1 rounded-md text-gray-950 mt-1 text-lg md:text-2xl"
+              className=" w-[400px] md:w-[775px] mx-2 border border-gray-300 p-1 rounded-md text-gray-950 mt-1 text-lg md:text-2xl"
               placeholder="VKD Hospitailty LLC"
             />
             <ChevronDown
@@ -98,7 +98,7 @@ const Section = () => {
               selected={startDate}
               onChange={(date) => setStartDate(date)}
               placeholderText="09/09/2025"
-              className="w-full md:w-[775px] border border-gray-300 p-2 rounded-md text-gray-950 px-10 mt-1 text-lg md:text-2xl"
+              className="w-[400px] md:w-[775px] border border-gray-300 p-2 rounded-md text-gray-950 px-10 mt-1 text-lg md:text-2xl"
             />
             <Calendar className="absolute left-2 top-2/3 transform -translate-y-1/2 text-gray-500 w-6 h-6 pointer-events-none" />
           </div>
@@ -109,7 +109,7 @@ const Section = () => {
               selected={startDate}
               onChange={(date) => setStartDate(date)}
               placeholderText="09/09/2025"
-              className="w-full md:w-[775px] border border-gray-300 p-1 rounded text-gray-950 mt-1 px-10 text-lg md:text-2xl"
+              className="w-[400px] md:w-[775px] border border-gray-300 p-1 rounded text-gray-950 mt-1 px-10 text-lg md:text-2xl"
             />
             <Calendar className="absolute left-2 top-2/3 transform -translate-y-1/2 text-gray-500 w-6 h-6 pointer-events-none" />
           </div>
@@ -154,11 +154,11 @@ const Section = () => {
      <div >
         <div className='font-bold text-2xl text-gray-700 mt-4'>Daily Sales</div>
 
-        <div className='flex flex-col md:flex-row justify-between items-start md:items-center gap-4'>
+        <div className='flex flex-col md:flex-row justify-between items-start md:items-center '>
          <select
          value={selectedOption}
           onChange={handleChange}
-        className="w-full md:w-[1050px] border text-gray-600 text-xl md:text-2xl border-gray-300 mb-1 md:mb-5 mt-1 rounded-lg p-2 "
+        className="w-full md:w-[1050px] border text-gray-600 text-xl md:text-2xl border-gray-300 mb-1 md:my-5 my-1 rounded-lg p-2 "
       >
         <option value="Day">Date</option>
         <option value="Date">Day</option>
@@ -178,7 +178,7 @@ const Section = () => {
          className=" w-full md:w-[1090px] mx-1 border border-gray-300 p-2  rounded-md text-gray-950 my-1 md:my-5 text-xl md:text-2xl"
          placeholder="Filters..." />
     
-          <div className='flex justify-start font-semibold text-indigo-700 text-lg md:text-xl my-3 md:my-1 mx-1'><Filter className='mx-1'/> | records</div>
+          <div className='flex justify-start font-semibold text-indigo-700 text-lg md:text-xl my-3 md:my-1 mx-1'><Filter className='mx-1'/>| records</div>
           </div>
 
     <div className="overflow-x-auto w-full">
@@ -187,11 +187,11 @@ const Section = () => {
     <div className="pl-2">Date</div>
     <div className="flex items-center gap-2"><DollarSign className="w-5 h-5" /> Sales Amount</div>
     <div className="flex items-center gap-2"><Layers className="w-5 h-5" /> Covers</div>
-    <div className="flex items-center gap-2"><Wallet className="w-5 h-5" /> Spent</div>
+    <div className="flex items-center gap-2 md:pl-4"><Wallet className="w-5 h-5" /> Spent</div>
   </div>
 
-  <div className="min-w-[900px] border-b h-12 bg-indigo-500 text-white text-base sm:text-lg md:text-2xl font-semibold flex items-center justify-around px-4 mt-2">
-    <div className="MD:pl-[500px]">Lunch</div>
+  <div className="min-w-[900px] border-b h-12 bg-indigo-500 text-white text-base sm:text-lg md:text-2xl font-semibold flex items-center justify-around px-4 ">
+    <div className="md:pl-[400px]">Lunch</div>
     <div>Dinner</div>
     <div>Net</div>
     <div>Lunch</div>
@@ -202,7 +202,7 @@ const Section = () => {
     <div>Net Spent</div>
   </div>
 
-  <div className="min-w-[900px] border-b shadow-lg h-14 bg-white text-gray-800 text-base sm:text-lg md:text-2xl font-semibold flex items-center px-4 mt-2">
+  <div className="min-w-[900px] border-b border-b-gray-100 shadow-lg h-14 bg-white text-gray-800 text-base sm:text-lg md:text-2xl font-semibold flex items-center  px-4 mt-2">
     Total
   </div>
 </div>
@@ -216,14 +216,13 @@ const Section = () => {
           onChange={handleChange1}
         className="w-full md:w-[1050px] border text-gray-600 text-2xl border-gray-300 mx-1 my-5 rounded-lg p-2 "
       >
-        <option value="Day">Category Name</option>
-        <option value="Date">Lunch</option>
-        <option value="Net Sales">Dinner</option>
-        <option value="Net Spent">Net Sales</option>
-        <option value="Launch Sales">Class Name</option>
-        <option value="Dinner Sales">Category Name</option>
-        <option value="Dinner Spent">Lunch Contribution</option>
-        <option value="Lunch Covers">Dinner Contribution</option>
+        <option className='text-sm md:text-xl'  value="Category Name">Category Name</option>
+        <option className='text-sm md:text-xl' value="Lunch">Lunch</option>
+        <option className='text-sm md:text-xl' value="Dinner">Dinner</option>
+        <option className='text-sm md:text-xl' value="Net Sales">Net Sales</option>
+        <option className='text-sm md:text-xl' value="Class Name">Class Name</option>
+        <option  className='text-sm md:text-xl' value="Lunch Contribution">Lunch Contribution</option>
+        <option className='text-sm md:text-xl' value="Dinner Contribution">Dinner Contribution</option>
       
       </select>
 
@@ -236,9 +235,7 @@ const Section = () => {
           <div className='flex justify-start font-semibold text-indigo-700 text-lg md:text-xl my-3 md:my-1 mx-1'><Filter className='mx-1'/> | records</div>
           </div>
       </div>
-      {/* Header Row */}
 <div className="overflow-x-auto w-full">
-  {/* Header Row */}
   <div className="min-w-[800px] border-b h-12 bg-indigo-500 text-white 
     text-base sm:text-lg md:text-2xl font-semibold rounded-md flex items-center justify-around px-4">
     <div>Category</div>
@@ -250,7 +247,6 @@ const Section = () => {
     <div>Dinner%</div>
   </div>
 
-  {/* Total Row */}
   <div className="min-w-[800px] border-b border-gray-300 shadow-lg h-14 
     bg-white text-gray-800 text-base sm:text-lg md:text-xl font-bold 
     rounded-md flex items-center px-4 mt-2">
@@ -262,7 +258,7 @@ const Section = () => {
 
 
 
-       <div className='font-bold text-2xl text-gray-700 mt-4'>Revenue Category</div>
+       <div className='font-bold text-2xl text-gray-700 mt-4 '>Revenue Category</div>
 
         <div className='flex flex-col md:flex-row justify-between items-center'>
          <select
@@ -272,18 +268,18 @@ const Section = () => {
       >
       
   
-        <option value="Dinner">Dinner</option>
-        <option value="Total Sales">Total Sales</option>
-        <option value="Lunch Contribution">Lunch Contribution</option>
-        <option value="Dinner Contribution">Dinner Contribution</option>
-         <option value="Revenue Center Name">Revenue Center Name</option>
+        <option className='text-sm md:text-xl' value="Dinner">Dinner</option>
+        <option className='text-sm md:text-xl' value="Total Sales">Total Sales</option>
+        <option  className='text-sm md:text-xl' value="Lunch Contribution">Lunch Contribution</option>
+        <option className='text-sm md:text-xl' value="Dinner Contribution">Dinner Contribution</option>
+         <option className='text-sm md:text-xl' value="Revenue Center Name">Revenue Center Name</option>
       
       </select>
 
   
            <input     
          type="text"
-         className=" w-full md:w-[1190px] mx-1 border border-gray-300 p-2  rounded-md text-gray-950 my-5   text-2xl"
+         className=" w-full md:w-[1090px] mx-1 border border-gray-300 p-2  rounded-md text-gray-950 my-5   text-2xl"
          placeholder="Filters..." />
     
           <div className='flex justify-start font-semibold text-indigo-700 text-lg md:text-xl my-3 md:my-1 mx-1'><Filter className='mx-1'/> | records</div>
@@ -312,7 +308,7 @@ const Section = () => {
 
 
 
-     <div className='overflow-x-auto w-full  border-b border-b-gray-300 shadow-lg h-14 bg-white text-gray-800 text-2xl font-semibold rounded-md flex justify-start items-center py-5 px-4'>Sales
+     <div className=' w-full  border-b border-b-gray-300 shadow-lg h-14 bg-white text-gray-800 text-2xl font-semibold rounded-md flex justify-start items-center py-5 px-4'>Sales
       by Average Chart</div>
 
 
@@ -321,24 +317,24 @@ const Section = () => {
          <select
          value={selectedOption3}
           onChange={handleChange3}
-        className="w-full md:w-[1050px] border text-gray-600 text-2xl border-gray-300 mt-1 mb-5 rounded-lg p-2 "
+        className="w-full md:w-[1050px] border text-gray-600 text-2xl border-gray-300 mx-1 my-5 rounded-lg p-2 "
       >
 
-        <option value="Lunch">Lunch</option>
-        <option value="Dinner">Dinner</option>
-        <option value="Avg Daily">Avg Daily</option>
-        <option value="Avg Lunch">Avg Lunch</option>
-        <option value="Net Sales">Net Sales</option>
-        <option value="No Of Ooc">No Of Ooc</option>
-         <option value="Sales Day">Sales Day</option>
-           <option value="Avg Dinner">Avg Dinner</option>
+        <option className='text-sm md:text-xl' value="Lunch">Lunch</option>
+        <option className='text-sm md:text-xl' value="Dinner">Dinner</option>
+        <option className='text-sm md:text-xl' value="Avg Daily">Avg Daily</option>
+        <option className='text-sm md:text-xl' value="Avg Lunch">Avg Lunch</option>
+        <option className='text-sm md:text-xl' value="Net Sales">Net Sales</option>
+        <option className='text-sm md:text-xl' value="No Of Ooc">No Of Ooc</option>
+         <option className='text-sm md:text-xl' value="Sales Day">Sales Day</option>
+        <option className='text-sm md:text-xl' value="Avg Dinner">Avg Dinner</option>
 
       </select>
 
 
            <input
          type="text"
-         className=" w-full md:w-[1190px] mx-1 border border-gray-300 p-2  rounded-md text-gray-950 my-5   text-2xl"
+         className=" w-full md:w-[1090px] mx-1 border border-gray-300 p-2  rounded-md text-gray-950 my-5   text-2xl"
          placeholder="Filters..." />
 
           <div className='flex justify-start font-semibold text-indigo-700 text-xl mb-2 mx-1'><Filter className='mx-1'/> | records</div>
@@ -368,34 +364,34 @@ const Section = () => {
 
 
 
-      <div className='flex flex-col md:flex-row justify-between items-center gap-3 my-20 text-gray-800'> 
+      <div className='flex flex-col md:flex-row justify-between items-center gap-3 my-20 md:my-5 text-gray-800'> 
   <div className='flex-1 border border-gray-100 shadow-lg h-14 bg-white text-gray-800 text-2xl font-semibold rounded-md
     py-4 px-4'>Contributions By Item Lunch Food Chart</div>
 
   <div className='flex-1 border border-gray-100 shadow-lg h-14 bg-white text-gray-800 text-2xl font-semibold py-4 px-4'>Net Sale By Item Lunch Food Chart</div>
 </div>
 
-<div className='font-bold text-2xl text-gray-700 my-4'>Sales By Item Lunch Food</div>
+<div className='font-bold text-2xl text-gray-700 my-4 md:my-1'>Sales By Item Lunch Food</div>
 
-<div className='flex flex-col md:flex-row justify-between items-center gap-2 md:gap-3 w-full'>
+<div className='flex flex-col md:flex-row justify-between items-center gap-2 md:gap-3'>
   <select
     value={selectedOption4}
     onChange={handleChange4}
-    className="flex-1 border text-gray-600 text-2xl border-gray-300 rounded-lg p-2"
+    className="w-full md:w-[1050px] border text-gray-600 text-2xl border-gray-300 mx-1 my-5 rounded-lg p-2 "
   >
-    <option value="Sold Qty">Sold Qty</option>
-    <option value="Item Name">Item Name</option>
-    <option value="Net Sales">Net Sales</option>
-    <option value="Contribution Percentage">Contribution Percentage</option>
+    <option className='text-sm md:text-xl' value="Sold Qty">Sold Qty</option>
+    <option className='text-sm md:text-xl' value="Item Name">Item Name</option>
+    <option className='text-sm md:text-xl' value="Net Sales">Net Sales</option>
+    <option className='text-sm md:text-xl' value="Contribution Percentage">Contribution Percentage</option>
   </select>
 
   <input     
     type="text"
-    className="flex-1 border border-gray-300 p-2 rounded-lg text-gray-950 text-2xl"
+    className=" w-full md:w-[1090px] border border-gray-300 p-2 rounded-lg text-gray-950 text-2xl"
     placeholder="Filters..."
   />
 
-  <div className='flex-none flex my-2 md:my-1 justify-start font-semibold text-indigo-700 text-xl'>
+  <div className='flex justify-start font-semibold text-indigo-700 text-xl mb-2 mx-1'>
     <Filter className='mx-1'/> | records
   </div>
 </div>
@@ -409,8 +405,8 @@ const Section = () => {
           {/* Header Row */}
 <div className="overflow-x-auto w-full">
   {/* Header Row */}
-  <div className="min-w-[900px] border-b h-12 bg-indigo-500 text-white 
-    text-base sm:text-lg md:text-2xl font-semibold rounded-md flex items-center flex-nowrap whitespace-nowrap px-4 justify-start">
+  <div className="min-w-[1050px] border-b h-12 bg-indigo-500 text-white 
+    text-base sm:text-lg md:text-2xl font-semibold rounded-md flex items-center justify-around px-4">
     <div className="px-4">Item Name</div>
     <div className="px-4">QTY</div>
     <div className="px-4">Net Sales</div>
@@ -429,7 +425,7 @@ const Section = () => {
 
 
       {/* Top Charts */}
-<div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4 w-full">
+<div className="flex flex-col md:flex-row justify-between items-center gap-3 my-20 md:my-5 text-gray-800">
   <div className="flex-1 border border-gray-100 shadow-lg h-14 bg-white text-gray-800 text-2xl font-semibold rounded-md py-4 px-4">
     Contributions By Item Lunch Beverage Chart
   </div>
@@ -445,25 +441,25 @@ const Section = () => {
 </div>
 
 {/* Filters */}
-<div className="flex flex-col md:flex-row md:justify-start items-start md:items-center gap-3 mt-4 w-full">
+<div className="flex flex-col md:flex-row justify-between items-center gap-2 md:gap-3">
   <select
     value={selectedOption4}
     onChange={handleChange4}
-    className="w-full md:w-[500px] border text-gray-600 text-2xl border-gray-300 rounded-lg p-2"
+    className="w-full md:w-[1050px] border text-gray-600 text-2xl border-gray-300 mx-1 my-5 rounded-lg p-2"
   >
-    <option value="Sold Qty">Sold Qty</option>
-    <option value="Item Name">Item Name</option>
-    <option value="Net Sales">Net Sales</option>
-    <option value="Contribution Percentage">Contribution Percentage</option>
+    <option className='text-sm md:text-xl' value="Sold Qty">Sold Qty</option>
+    <option className='text-sm md:text-xl' value="Item Name">Item Name</option>
+    <option className='text-sm md:text-xl' value="Net Sales">Net Sales</option>
+    <option className='text-sm md:text-xl' value="Contribution Percentage">Contribution Percentage</option>
   </select>
 
   <input
     type="text"
-    className="w-full md:w-[500px] border border-gray-300 p-2 rounded-md text-gray-950 text-2xl"
+    className="w-full md:w-[1090px] border border-gray-300 p-2 rounded-md text-gray-950 text-2xl"
     placeholder="Filters..."
   />
 
-  <div className="flex items-center font-semibold text-indigo-700 text-xl mt-2 md:mt-0">
+  <div className="flex justify-start font-semibold text-indigo-700 text-xl mb-2 mx-1">
     <Filter className="mr-1" /> | records
   </div>
 </div>
@@ -492,11 +488,11 @@ const Section = () => {
 
 {/* Charts Section */}
 <div className="flex flex-col md:flex-row flex-wrap justify-between items-start md:items-center gap-4 text-gray-800 mt-6">
-  <div className="w-full md:w-[560px] border border-gray-100 shadow-lg bg-white text-gray-800 text-2xl font-semibold rounded-md py-4 px-4">
+  <div className="flex-1 border border-gray-100 shadow-lg h-14 bg-white text-gray-800 text-2xl font-semibold rounded-md py-4 px-4">
     Contributions By Item Dinner Beverage Chart
   </div>
 
-  <div className="w-full md:w-[560px] border border-gray-100 shadow-lg bg-white text-gray-800 text-2xl font-semibold rounded-md py-4 px-4">
+  <div className="flex-1 border border-gray-100 shadow-lg h-14 bg-white text-gray-800 text-2xl font-semibold rounded-md py-4 px-4">
     Net Sale By Item Dinner Beverage Chart
   </div>
 </div>
@@ -504,26 +500,26 @@ const Section = () => {
 {/* Filters Section */}
 <div className="font-bold text-2xl text-gray-700 mt-6">Sales By Item Dinner Beverage</div>
 
-<div className="flex flex-col md:flex-row flex-wrap justify-start md:justify-between items-start md:items-center gap-4 mt-4 w-full">
+<div className="flex flex-col md:flex-row justify-between items-center gap-2 md:gap-3">
   <select
     value={selectedOption4}
     onChange={handleChange4}
-    className="w-full md:w-[300px] border text-gray-600 text-2xl border-gray-300 rounded-lg p-2"
+    className="w-full md:w-[1050px] border text-gray-600 text-2xl border-gray-300 mx-1 my-5 rounded-lg p-2"
   >
-    <option value="Sold Qty">Sold Qty</option>
-    <option value="Item Name">Item Name</option>
-    <option value="Net Sales">Net Sales</option>
-    <option value="Contribution Percentage">Contribution Percentage</option>
+    <option className='text-sm md:text-xl' value="Sold Qty">Sold Qty</option>
+    <option className='text-sm md:text-xl' value="Item Name">Item Name</option>
+    <option className='text-sm md:text-xl' value="Net Sales">Net Sales</option>
+    <option className='text-sm md:text-xl' value="Contribution Percentage">Contribution Percentage</option>
   </select>
 
   <input
     type="text"
-    className="w-full md:w-[300px] border border-gray-300 p-2 rounded-md text-gray-950 text-2xl"
+    className="w-full md:w-[1090px] shadow-lg border border-gray-300 p-2 rounded-md text-gray-950 text-2xl"
     placeholder="Filters..."
   />
 
-  <div className="flex items-center font-semibold text-indigo-700 my-2 md:my-0 text-xl">
-    <Filter className="mr-1" /> | records
+  <div className="flex justify-start font-semibold text-indigo-700 text-xl mb-2 mx-1">
+    <Filter className="mx-1" /> | records
   </div>
 </div>
 
@@ -532,9 +528,8 @@ const Section = () => {
           {/* Header Row */}
 <div className="overflow-x-auto">
   {/* Header Row */}
-  <div className="min-w-[900px] inline-flex border-b h-12 bg-indigo-500 text-white 
-    text-base sm:text-lg md:text-2xl font-semibold rounded-md 
-    justify-around items-center px-4 whitespace-nowrap">
+  <div className="min-w-[900px] flex border-b h-12 bg-indigo-500 text-white 
+    text-base sm:text-lg md:text-2xl font-semibold rounded-md justify-around items-center px-4 whitespace-nowrap">
     
     <div>Item Name</div>
     <div>QTY</div>
@@ -545,9 +540,8 @@ const Section = () => {
 
 {/* Total Row */}
 
-  <div className="min-w-[900px] inline-flex border-b border-gray-300 shadow-lg h-14 
-    bg-white text-gray-800 text-base sm:text-lg md:text-xl font-bold 
-    rounded-md items-center px-8 sm:px-16 md:px-32 whitespace-nowrap">
+  <div className="min-w-[900px] flex border-b border-gray-300 shadow-lg h-14 
+    bg-white text-gray-800 text-base sm:text-lg md:text-xl font-bold rounded-md justify-between items-center px-8 sm:px-16 md:px-32 mt-2 whitespace-nowrap">
     Total
   </div>
 </div>

@@ -6,7 +6,7 @@ const Dashboard = ({ tabs = [], activeTab = null, onTabClick, onRemoveTab }) => 
   return (
     <div className="flex-1 p-6">
     
-      <div className="fixed w-full text-xl h-[70px]  rounded-md p-2 shadow-md flex gap-2 items-center bg-white">
+      <div className="fixed w-[600px]  md:w-full text-xl h-[70px] z-50 rounded-md p-2 shadow-md flex gap-2 items-center bg-white">
         {tabs.map((tab) => (
           <div
             key={tab.name}

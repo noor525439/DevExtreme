@@ -52,7 +52,7 @@ const Modules = ({ tabs = [], activeTab, onTabClick, onRemoveTab }) => {
   return (
     <div className="flex-1 p-4 md:p-6 bg-gray-50">
       
-      {/* Tabs System - Mobile Responsive */}
+    
       <div className={`sticky top-0 z-30 text-lg md:text-xl h-[60px] md:h-[70px] rounded-md shadow-md p-2 md:p-4 flex gap-2 items-center overflow-x-auto ${tabs.length === 0 ? "hidden" : "bg-white"}`}>
         {tabs.length === 0 ? (
           <p className="text-gray-50 w-full text-center"></p>
@@ -82,7 +82,7 @@ const Modules = ({ tabs = [], activeTab, onTabClick, onRemoveTab }) => {
         <h1 className="text-xl md:text-2xl font-bold mt-20 md:mt-16 mb-4">Module list</h1>
       )}
 
-      {/* Filters Section - Mobile Responsive */}
+    
       <div className="bg-white p-3 md:p-4 rounded-lg shadow mb-4">
         <div className="flex justify-between items-center mb-2">
           <h2 className="font-semibold text-lg md:text-xl">Filters</h2>
@@ -126,7 +126,7 @@ const Modules = ({ tabs = [], activeTab, onTabClick, onRemoveTab }) => {
         </div>
       </div>
 
-      {/* Action Buttons - Mobile Responsive */}
+      
       <div className="bg-white p-3 md:p-4 rounded-lg shadow mb-4">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center space-y-4 md:space-y-0">
           <div className="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0">
@@ -251,6 +251,7 @@ const Modules = ({ tabs = [], activeTab, onTabClick, onRemoveTab }) => {
       )}
     </tbody>
   </table>
+  <p className='text-xl my-3 font-bold text-gray-900'>Records:<span className='text-gray-600'>50/50</span></p>
 </div>
 
       </div>

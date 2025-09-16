@@ -11,7 +11,7 @@ const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const Dropdown = () => (
-    <div className="absolute right-2 sm:right-4 top-14 mt-1 w-[90vw] sm:w-56 bg-white dark:bg-gray-800 shadow-md rounded-md text-base sm:text-xl z-50 border border-gray-200 dark:border-gray-700">
+    <div className="absolute md:right-2 right-4 top-14 mt-1 w-[90vw] sm:w-56 bg-white dark:bg-gray-800 shadow-lg rounded-md md:text-base text-xl z-50 border border-gray-200 dark:border-gray-700">
       <ul>
         <li className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer flex items-center gap-3">
           <User size={18} />
@@ -65,7 +65,7 @@ const Navbar = () => {
       </div>
 
 
-      <div className="flex flex-1 pt-16">
+      <div className="flex flex-1 pt-12">
         <Sidebar extended={extended} />
       </div>
     </div>

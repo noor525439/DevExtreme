@@ -28,7 +28,7 @@ const Sidebar = ({ extended }) => {
     setActiveTab(menuName);
     navigate("/dashboard");
 
-    // Close sidebar on mobile after click
+    
     setMobileOpen(false);
   };
 
@@ -58,7 +58,7 @@ const Sidebar = ({ extended }) => {
 
   return (
     <div className="flex min-h-screen w-screen relative bg-indigo-500">
-      {/* Mobile Hamburger */}
+      
       <button
         className="sm:hidden p-3 text-indigo-600 fixed top-2 left-2 z-50 bg-white rounded-md shadow"
         onClick={() => setMobileOpen(!mobileOpen)}
@@ -156,7 +156,7 @@ const Sidebar = ({ extended }) => {
       <main
         className={`flex-1 bg-gray-100 transition-all duration-300 min-h-screen
           ${extended ? "sm:ml-64" : "sm:ml-20"} 
-          ${mobileOpen ? "ml-64" : "ml-0"}
+          ${mobileOpen ? "ml-44" : "ml-0"}
         `}
       >
         <Routes>
