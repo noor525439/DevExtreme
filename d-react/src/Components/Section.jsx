@@ -497,7 +497,8 @@ const Section = () => {
   </div>
 </div>
 
-{/* Filters Section */}
+
+
 <div className="font-bold text-2xl text-gray-700 mt-6">Sales By Item Dinner Beverage</div>
 
 <div className="flex flex-col md:flex-row justify-between items-center gap-2 md:gap-3">
@@ -514,7 +515,7 @@ const Section = () => {
 
   <input
     type="text"
-    className="w-full md:w-[1090px] shadow-lg border border-gray-300 p-2 rounded-md text-gray-950 text-2xl"
+    className="w-full md:w-[1090px] border border-gray-300 p-2 rounded-md text-gray-950 text-2xl"
     placeholder="Filters..."
   />
 

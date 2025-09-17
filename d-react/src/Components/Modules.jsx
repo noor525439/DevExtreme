@@ -1,5 +1,5 @@
 import { ArrowDown, Minus, RefreshCcw, Search, X } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const allModules = Array.from({ length: 50 }, (_, i) => ({
   id: i + 1,
@@ -11,12 +11,26 @@ const allModules = Array.from({ length: 50 }, (_, i) => ({
 const Modules = ({ tabs = [], activeTab, onTabClick, onRemoveTab }) => {
   const [modules, setModules] = useState(allModules.slice(0, 10));
   const [loading, setLoading] = useState(false);
-  const [filterInput, setFilterInput] = useState({});
+   const [filterInput, setFilterInput] = useState({});
   const [appliedFilter, setAppliedFilter] = useState({});
   const [enabled, setEnabled] = useState(false);
   const [enabled2, setEnabled2] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
 
+ useEffect(() => {
+    const saved = localStorage.getItem("filterInput");
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        setFilterInput(parsed);
+        setAppliedFilter(parsed); 
+      } catch {
+        localStorage.removeItem("filterInput");
+      }
+    }
+  }, []);
+
+   
   const loadMore = () => {
     if (modules.length >= allModules.length) return;
     setLoading(true);
@@ -34,21 +48,30 @@ const Modules = ({ tabs = [], activeTab, onTabClick, onRemoveTab }) => {
     }
   };
 
-  const handleFilterChange = (tab, value) => {
-    setFilterInput(prev => ({
-      ...prev,
-      [tab]: value,
-    }));
+   const handleInputChange = (tab, value) => {
+    setFilterInput((prev) => {
+      const updated = { ...prev, [tab]: value };
+      localStorage.setItem("filterInput", JSON.stringify(updated));
+      return updated;
+    });
   };
 
-  const applyFilter = () => {
-    setAppliedFilter({ ...filterInput });
+   const handleReset = () => {
+    setFilterInput({});
+    setAppliedFilter({});
+    localStorage.removeItem("filterInput");
   };
 
-  const filteredModules = modules.filter(m =>
+
+  const handleApplyFilter = () => {
+    setAppliedFilter(filterInput);
+  };
+   const filteredModules = modules.filter((m) =>
     m.name.toLowerCase().includes((appliedFilter[activeTab] || "").toLowerCase())
   );
 
+
+  
   return (
     <div className="flex-1 p-4 md:p-6 bg-gray-50">
       
@@ -101,27 +124,28 @@ const Modules = ({ tabs = [], activeTab, onTabClick, onRemoveTab }) => {
               <option>Contains</option>
             </select>
             <input
-              type="text"
-              placeholder="Search by name"
-              value={filterInput[activeTab] || ""}
-              onChange={e => handleFilterChange(activeTab, e.target.value)}
-              className="border rounded px-2 py-1 flex-1 text-sm md:text-base"
-            />
+        type="text"
+        placeholder="Search by name"
+        value={filterInput[activeTab] || ""}
+        onChange={(e) => handleInputChange(activeTab, e.target.value)}
+        className="border rounded px-2 py-1 flex-1 text-sm md:text-base"
+      />
+             
           </div>
 
           <div className="mt-2 flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2">
             <button
-              className="bg-indigo-500 text-white px-3 py-1 rounded text-sm md:text-base"
-              onClick={applyFilter}
-            >
-              Apply Filter
-            </button>
-            <button
-              className="bg-indigo-500 text-white px-3 py-1 rounded text-sm md:text-base"
-              onClick={() => { setFilterInput({}); setAppliedFilter({}); }}
-            >
-              Reset
-            </button>
+  className="bg-indigo-500 text-white px-3 py-1 rounded text-sm md:text-base"
+  onClick={handleApplyFilter}
+>
+  Apply Filter
+</button>
+           <button
+  className="bg-indigo-500 text-white px-3 py-1 rounded text-sm md:text-base"
+  onClick={handleReset}
+>
+  Reset
+</button>
           </div>
         </div>
       </div>
@@ -187,9 +211,9 @@ const Modules = ({ tabs = [], activeTab, onTabClick, onRemoveTab }) => {
       >
         <div className="max-h-[1500px]  border border-gray-300">
   <table className="w-full text-left border-collapse">
-    <thead>
+    <thead className='sticky top-0 z-50'>
       <tr className="bg-indigo-500 text-white">
-        <th className="p-2 border border-gray-300 w-44 sticky top-0 bg-indigo-500 z-10">
+        <th className="p-2 border border-gray-300 w-44 sticky top-0 z-50 bg-indigo-500 ">
           <div className="flex justify-between items-center">
             <span>Module Name</span>
             <Search className="w-4 h-4 cursor-pointer" />
@@ -251,10 +275,11 @@ const Modules = ({ tabs = [], activeTab, onTabClick, onRemoveTab }) => {
       )}
     </tbody>
   </table>
-  <p className='text-xl my-3 font-bold text-gray-900'>Records:<span className='text-gray-600'>50/50</span></p>
+ 
 </div>
 
       </div>
+       <p className='text-xl mx-3 font-bold text-gray-800'>Records:<span className="text-gray-800 font-semibold"> 50/50</span></p>
     </div>
   );
 };

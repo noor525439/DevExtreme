@@ -10,6 +10,7 @@ const Sidebar = ({ extended }) => {
   const [tabs, setTabs] = useState([{ name: "Dashboard" }]);
   const [activeTab, setActiveTab] = useState("Dashboard");
   const [mobileOpen, setMobileOpen] = useState(false);
+   const [filterInput, setFilterInput] = useState({});
 
   const navigate = useNavigate();
 
@@ -45,14 +46,6 @@ const Sidebar = ({ extended }) => {
 
   const filteredItems = componentsConfig.filter((item) => {
     const query = search.toLowerCase();
-    if (item.children) {
-      return (
-        item.name.toLowerCase().includes(query) ||
-        item.children.some((child) =>
-          child.name.toLowerCase().includes(query)
-        )
-      );
-    }
     return item.name.toLowerCase().includes(query);
   });
 
@@ -73,7 +66,7 @@ const Sidebar = ({ extended }) => {
           ${mobileOpen ? "translate-x-0" : "-translate-x-full sm:translate-x-0"}
         `}
       >
-        <nav className="flex flex-col p-2 pt-7 space-y-2 mb-20">
+        <nav className="flex flex-col p-2 pt-7 space-y-2 mb-96">
           {filteredItems.map((item) => (
             <div key={item.path} className="relative">
               {item.children ? (
@@ -142,7 +135,7 @@ const Sidebar = ({ extended }) => {
         </nav>
 
       
-        <div className="flex justify-between gap-2 items-center px-3 mb-4">
+        <div className="flex justify-between gap-2 items-center px-3 ">
           <input
             type="text"
             placeholder="Search..."
