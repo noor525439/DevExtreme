@@ -3,6 +3,7 @@ import * as Icons from "lucide-react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import componentsConfig from "./ComponentsConfig";
 import Dashboard from "./Dashboard";
+import ErrorBoundary from "./ErrorBoundary";
 
 const Sidebar = ({ extended }) => {
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -152,16 +153,19 @@ const Sidebar = ({ extended }) => {
           ${mobileOpen ? "ml-44" : "ml-0"}
         `}
       >
+
+  
         <Routes>
           <Route
             path="/dashboard"
             element={
+              <ErrorBoundary> 
               <Dashboard
                 tabs={tabs}
                 activeTab={activeTab}
                 onTabClick={setActiveTab}
                 onRemoveTab={handleRemoveTab}
-              />
+              /></ErrorBoundary>
             }
           />
         </Routes>

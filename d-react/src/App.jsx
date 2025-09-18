@@ -3,14 +3,12 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LogIn from "./Components/LogIn";
 import SignUp from "./Components/SignUp";
 import Navbar from "./Components/Navbar";
-import Sidebar from "./Components/Sidebar";
 
 const Layout = () => {
   return (
     <div className="flex flex-col min-h-screen">
-    
+     
       <Navbar />
-
     
     </div>
   );

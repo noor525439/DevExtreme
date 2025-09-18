@@ -1,6 +1,7 @@
 import React from "react";
 import { X } from "lucide-react";
 import Section from "./Section";
+import ErrorBoundary from "./ErrorBoundary";
 
 const Dashboard = ({ tabs = [], activeTab = null, onTabClick, onRemoveTab }) => {
   return (
@@ -41,7 +42,8 @@ const Dashboard = ({ tabs = [], activeTab = null, onTabClick, onRemoveTab }) => 
   
         {activeTab === "Dashboard" && (
           <div className="w-full mt-20">
-            <Section />
+          <ErrorBoundary><Section /></ErrorBoundary>
+        
           </div>
         )}
       </div>

@@ -52,6 +52,7 @@ const Section = () => {
     setSelectedOption3(e.target.value);
   };
 
+
   const handleChange4 = (e) => {
     setSelectedOption4(e.target.value);
   };
@@ -189,7 +190,6 @@ const Section = () => {
     <div className="flex items-center gap-2"><Layers className="w-5 h-5" /> Covers</div>
     <div className="flex items-center gap-2 md:pl-4"><Wallet className="w-5 h-5" /> Spent</div>
   </div>
-
   <div className="min-w-[900px] border-b h-12 bg-indigo-500 text-white text-base sm:text-lg md:text-2xl font-semibold flex items-center justify-around px-4 ">
     <div className="md:pl-[400px]">Lunch</div>
     <div>Dinner</div>

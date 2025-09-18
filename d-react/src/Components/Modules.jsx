@@ -7,7 +7,6 @@ const allModules = Array.from({ length: 50 }, (_, i) => ({
   text: `Text ${i + 1}`,
   createdBy: "zubairkhan",
 }));
-
 const Modules = ({ tabs = [], activeTab, onTabClick, onRemoveTab }) => {
   const [modules, setModules] = useState(allModules.slice(0, 10));
   const [loading, setLoading] = useState(false);
@@ -29,6 +28,8 @@ const Modules = ({ tabs = [], activeTab, onTabClick, onRemoveTab }) => {
       }
     }
   }, []);
+
+
 
    
   const loadMore = () => {
@@ -88,6 +89,7 @@ const Modules = ({ tabs = [], activeTab, onTabClick, onRemoveTab }) => {
               }`}
               onClick={() => onTabClick(tab)}
             >
+    
               <span className="text-sm md:text-base">{tab}</span>
               <X
                 className="w-3 h-3 md:w-4 md:h-4 cursor-pointer"

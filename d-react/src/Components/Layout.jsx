@@ -4,6 +4,8 @@ import Sidebar from "./Sidebar";
 import { Routes, Route } from "react-router-dom";
 import Modules from "./Modules";
 import Dashboard from "./Dashboard";
+import ErrorBoundary from "./ErrorBoundary";
+
 
 const Layout = () => {
   
@@ -26,32 +28,37 @@ const Layout = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
+
+    <ErrorBoundary><Navbar /></ErrorBoundary>
+    
       <div className="flex flex-1">
-        <Sidebar
+
+      <ErrorBoundary> <Sidebar
           tabs={tabs}
           activeTab={activeTab}
           onTabClick={handleTabClick}
           onRemoveTab={handleRemoveTab}
-        />
+        /></ErrorBoundary>
 
         <main className="flex-1 p-4">
           <Routes>
             <Route path="/dashboard" element={
-              <Dashboard
+              <ErrorBoundary>  <Dashboard
                 tabs={tabs}
                 activeTab={activeTab}
                 onTabClick={handleTabClick}
                 onRemoveTab={handleRemoveTab}
-              />
+              /></ErrorBoundary>
             } />
             <Route path="/modules" element={
+              <ErrorBoundary> 
               <Modules
                 tabs={tabs}
                 activeTab={activeTab}
                 onTabClick={handleTabClick}
                 onRemoveTab={handleRemoveTab}
-              />
+              /></ErrorBoundary>
+              
             } />
           </Routes>
         </main>
