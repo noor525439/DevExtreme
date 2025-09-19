@@ -1,5 +1,0 @@
-- [ ] Update top filters (Company, From date, To date) to be responsive: use flex-col on small screens, w-full for inputs
-- [ ] Update selects and inputs in Daily Sales, Menu Category, etc. to w-full and stack on small screens
-- [ ] Make table headers responsive: use flex-wrap, min-w-0, and wrap tables in overflow-x-auto
-- [ ] Adjust text sizes for mobile (e.g., text-xl on small screens)
-- [ ] Test the component by running the app

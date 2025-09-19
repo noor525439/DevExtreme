@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import Modules from "./Modules";
 import Dashboard from "./Dashboard";
 import ErrorBoundary from "./ErrorBoundary";
+import Recipe from "./Recipe";
 
 
 const Layout = () => {
@@ -53,6 +54,16 @@ const Layout = () => {
             <Route path="/modules" element={
               <ErrorBoundary> 
               <Modules
+                tabs={tabs}
+                activeTab={activeTab}
+                onTabClick={handleTabClick}
+                onRemoveTab={handleRemoveTab}
+              /></ErrorBoundary>
+              
+            } />
+              <Route path="/recipe" element={
+              <ErrorBoundary> 
+              <Recipe
                 tabs={tabs}
                 activeTab={activeTab}
                 onTabClick={handleTabClick}

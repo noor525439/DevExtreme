@@ -42,7 +42,9 @@ const Dashboard = ({ tabs = [], activeTab = null, onTabClick, onRemoveTab }) => 
   
         {activeTab === "Dashboard" && (
           <div className="w-full mt-20">
-          <ErrorBoundary><Section /></ErrorBoundary>
+          <ErrorBoundary>
+          <Section />
+          </ErrorBoundary>
         
           </div>
         )}

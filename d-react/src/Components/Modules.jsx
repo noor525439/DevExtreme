@@ -28,7 +28,7 @@ const Modules = ({ tabs = [], activeTab, onTabClick, onRemoveTab }) => {
       }
     }
   }, []);
-
+  
 
 
    

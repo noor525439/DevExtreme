@@ -1,5 +1,7 @@
+import { ReceiptEuroIcon } from "lucide-react";
 import Dashboard from "./Dashboard";
 import Modules from "./Modules";
+import Recipe from "./Recipe";
 
 const componentsConfig = [
   {
@@ -11,19 +13,8 @@ const componentsConfig = [
   {
     name: "Users",
     icon: "Users",
-    path: "/examples",
-    children: [
-      {
-        name: "User List",
-        path: "/userList",   
-        element: <Modules />,
-      },
-      {
-        name: "Add User",
-        path: "/addUser",   
-        element: <Modules />,
-      },
-    ],
+     path: "/Recipe",   
+    element: <Recipe/>,
   },
   {
     name: "Modules",
@@ -31,6 +22,7 @@ const componentsConfig = [
     path: "/Modules",   
     element: <Modules />,
   },
+   
   {
     name: "SubModules",
     icon: "Grid",
