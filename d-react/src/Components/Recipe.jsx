@@ -52,30 +52,47 @@ const getVisibleRows = (nodes = [], level = 0, filter = "", expanded = {}) => {
 const Recipe = () => {
   const [modules, setModules] = useState([]);
   const [expanded, setExpanded] = useState({});
-  const [filterInput, setFilterInput] = useState("");
-  const [appliedFilter, setAppliedFilter] = useState("");
   const [showFilters, setShowFilters] = useState(true);
+
+  // 🔑 search & filter state from localStorage
+  const [searchValue, setSearchValue] = useState(() => {
+    return localStorage.getItem("searchValue") || "";
+  });
+  const [appliedFilter, setAppliedFilter] = useState(() => {
+    return localStorage.getItem("appliedFilter") || "";
+  });
 
   useEffect(() => {
     const raw = Data?.[0]?.data ?? [];
     setModules(buildHierarchy(raw));
   }, []);
 
+  // 🔑 persist search & filter to localStorage
+  useEffect(() => {
+    localStorage.setItem("searchValue", searchValue);
+  }, [searchValue]);
+
+  useEffect(() => {
+    localStorage.setItem("appliedFilter", appliedFilter);
+  }, [appliedFilter]);
+
   const toggleExpand = (id) => {
     setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
-  const handleApplyFilter = () => setAppliedFilter(filterInput);
+  const handleApplyFilter = () => setAppliedFilter(searchValue);
   const handleReset = () => {
-    setFilterInput("");
+    setSearchValue("");
     setAppliedFilter("");
+    localStorage.removeItem("searchValue");
+    localStorage.removeItem("appliedFilter");
   };
 
-  const filterStr = appliedFilter.toLowerCase().trim();
+  const filterStr = (appliedFilter || "").toLowerCase().trim();
   const visibleRows = getVisibleRows(modules, 0, filterStr, expanded);
 
   return (
-    <div className="p-4 w-[365px] sm:w-[465px] md:w-full  mt-20 bg-white">
+    <div className="p-4 w-[365px] sm:w-[465px] md:w-full mt-20 bg-white">
       {/* Heading */}
       <h1 className="text-lg sm:text-xl md:text-2xl font-bold mb-4">
         Batch & Recipe List
@@ -104,8 +121,8 @@ const Recipe = () => {
             <input
               type="text"
               placeholder="Search by name"
-              value={filterInput}
-              onChange={(e) => setFilterInput(e.target.value)}
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
               className="border rounded px-2 py-1 flex-1 text-sm md:text-base"
             />
           </div>

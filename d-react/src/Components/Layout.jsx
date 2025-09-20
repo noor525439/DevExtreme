@@ -8,10 +8,12 @@ import ErrorBoundary from "./ErrorBoundary";
 import Recipe from "./Recipe";
 
 
+
 const Layout = () => {
   
   const [tabs, setTabs] = useState([]);
   const [activeTab, setActiveTab] = useState(null);
+
 
   const handleTabClick = (tab) => {
     if (!tabs.includes(tab)) {
@@ -64,6 +66,7 @@ const Layout = () => {
               <Route path="/recipe" element={
               <ErrorBoundary> 
               <Recipe
+            
                 tabs={tabs}
                 activeTab={activeTab}
                 onTabClick={handleTabClick}
