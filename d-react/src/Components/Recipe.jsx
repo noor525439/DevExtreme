@@ -1,6 +1,8 @@
 import { Minus, ChevronRight, ChevronDown, Search } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import Data from "./Data";
+import { useSelector, useDispatch } from "react-redux";
+import { setSearch, applyFilter, clearSearch } from "./searchSlice";
 
 const buildHierarchy = (data = []) => {
   const map = new Map();
@@ -49,56 +51,44 @@ const getVisibleRows = (nodes = [], level = 0, filter = "", expanded = {}) => {
   return rows;
 };
 
-const Recipe = () => {
+const Modules = ({ activeTab = "default" }) => {
   const [modules, setModules] = useState([]);
   const [expanded, setExpanded] = useState({});
   const [showFilters, setShowFilters] = useState(true);
 
-  // 🔑 search & filter state from localStorage
-  const [searchValue, setSearchValue] = useState(() => {
-    return localStorage.getItem("searchValue") || "";
-  });
-  const [appliedFilter, setAppliedFilter] = useState(() => {
-    return localStorage.getItem("appliedFilter") || "";
-  });
+  
+  const searchState = useSelector((state) => state.search.search);
+  const appliedState = useSelector((state) => state.search.applied);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const raw = Data?.[0]?.data ?? [];
     setModules(buildHierarchy(raw));
   }, []);
 
-  // 🔑 persist search & filter to localStorage
-  useEffect(() => {
-    localStorage.setItem("searchValue", searchValue);
-  }, [searchValue]);
-
-  useEffect(() => {
-    localStorage.setItem("appliedFilter", appliedFilter);
-  }, [appliedFilter]);
-
   const toggleExpand = (id) => {
     setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
-  const handleApplyFilter = () => setAppliedFilter(searchValue);
-  const handleReset = () => {
-    setSearchValue("");
-    setAppliedFilter("");
-    localStorage.removeItem("searchValue");
-    localStorage.removeItem("appliedFilter");
+  const handleApplyFilter = () => {
+    dispatch(applyFilter({ [activeTab]: searchState?.[activeTab] || "" }));
   };
 
-  const filterStr = (appliedFilter || "").toLowerCase().trim();
+  const handleReset = () => {
+    dispatch(clearSearch());
+  };
+
+
+  const filterStr = (appliedState?.[activeTab] || "").toString().toLowerCase().trim();
   const visibleRows = getVisibleRows(modules, 0, filterStr, expanded);
 
   return (
     <div className="p-4 w-[365px] sm:w-[465px] md:w-full mt-20 bg-white">
-      {/* Heading */}
-      <h1 className="text-lg sm:text-xl md:text-2xl font-bold mb-4">
+      <h1 className="text-lg sm:text-xl md:text-2xl font-semibold mb-4">
         Batch & Recipe List
       </h1>
 
-      {/* Filters */}
+
       <div className="bg-white p-3 md:p-4 rounded-lg shadow mb-4">
         <div className="flex justify-between items-center mb-2">
           <h2 className="font-semibold text-base sm:text-lg md:text-xl">
@@ -121,8 +111,10 @@ const Recipe = () => {
             <input
               type="text"
               placeholder="Search by name"
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
+              value={searchState?.[activeTab] || ""}
+              onChange={(e) =>
+                dispatch(setSearch({ [activeTab]: e.target.value }))
+              }
               className="border rounded px-2 py-1 flex-1 text-sm md:text-base"
             />
           </div>
@@ -143,8 +135,6 @@ const Recipe = () => {
           </div>
         </div>
       </div>
-
-      {/* Table wrapper */}
       <div className="bg-white rounded-lg shadow overflow-x-auto h-[430px]">
         <table className="min-w-[800px] w-full text-left border-collapse text-sm sm:text-base">
           <thead className="sticky top-0 z-50 shadow">
@@ -222,9 +212,7 @@ const Recipe = () => {
                   <td className="p-2 border border-gray-300">
                     {node.base_unit_coverted}
                   </td>
-                  <td className="p-2 border border-gray-300">
-                    {node.final_qty}
-                  </td>
+                  <td className="p-2 border border-gray-300">{node.final_qty}</td>
                   <td className="p-2 border border-gray-300">{node.path}</td>
                 </tr>
               ))
@@ -233,7 +221,6 @@ const Recipe = () => {
         </table>
       </div>
 
-      {/* Records count */}
       <p className="text-base sm:text-lg font-bold mt-2">
         Records:{" "}
         <span className="font-semibold">
@@ -244,4 +231,4 @@ const Recipe = () => {
   );
 };
 
-export default Recipe;
+export default Modules;

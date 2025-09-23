@@ -417,22 +417,7 @@ const Data = [{
             "path": "1pc Fish Taco > Vinegar White (0.009500)",
             "cost": 0.0216
         },
-        {
-            "parent_id": null,
-            "parent_name": "TOTAL",
-            "product_type": "",
-            "child_product_id": null,
-            "child_name": "",
-            "qty": "",
-            "unit_selected": "",
-            "unit_selected_name": "",
-            "base_unit_name": "",
-            "base_unit_coverted": "",
-            "final_qty": "",
-            "level": null,
-            "path": "",
-            "cost": 5.21
-        }
+       
     ]
 }]
 export default Data;
